@@ -1,28 +1,4 @@
 
-  body {
-    font-family: "Poppins", sans-serif;
-    height: 100vh;
-  }
-  
-  a {
-    color: #92badd;
-    display:inline-block;
-    text-decoration: none;
-    font-weight: 400;
-  }
-  
-  h2 {
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    display:inline-block;
-    margin: 40px 8px 10px 8px; 
-    color: #cccccc;
-  }
-  
-  
-  
   .wrapper {
     display: flex;
     align-items: center;
@@ -66,7 +42,7 @@
     border-bottom: 2px solid #5fbae9;
   }
   
-  input[type=button], input[type=submit], input[type=reset]  {
+  input[type=button], input[type=reset]  {
     background-color: #5fbae9;
     border: none;
     color: black;
@@ -88,11 +64,11 @@
     transition: all 0.3s ease-in-out;
   }
   
-  input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  input[type=button]:hover, input[type=button]:hover, input[type=reset]:hover  {
     background-color: green;
   }
   
-  input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+  input[type=button]:active, input[type=button]:active, input[type=reset]:active  {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
     -o-transform: scale(0.95);
@@ -100,7 +76,7 @@
     transform: scale(0.95);
   }
   
-  input[type=text] {
+  input[type=email], [type=password] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -121,16 +97,14 @@
     border-radius: 5px 5px 5px 5px;
   }
   
-  input[type=text]:focus {
+  input[type=email]:focus, [type=password]:focus {
     background-color: #fff;
     border-bottom: 1px solid #5fbae9;
   }
   
-  input[type=text]:placeholder {
+  input[type=email]:placeholder, [type=password]:placeholder {
     color: #cccccc;
   }
-  
-  
   
   /* ANIMATIONS */
   
@@ -236,7 +210,3 @@
   *:focus {
       outline: none;
   } 
-  #icon {
-    width:30%;
-  }
-  
