@@ -11,22 +11,18 @@ function Login (){
   const [email,setEmail] = useState ('');
   const [senha,setSenha] = useState ('');
 
-  function Logar(){firebase.auth().signInWithEmailAndPassword(email,senha).then((resultado) => {Dispatch({type:"Logue_In",usuarioEmail:email})}).catch(Error)};
+  function Logar(){firebase.auth().signInWithEmailAndPassword(email,senha).then((history) => {Dispatch({type:"Logue_In",usuarioEmail:email})}).catch(Error)};
   
-
-
   return (
     <div class="wrapper fadeInDown">
-      {useSelector((state) => state.usuarioLogado)>0 ? (<Redirect to="/Encarregado"/>):null}
-      
+      {useSelector((state) => state.usuarioLogado)>0 ? (<Redirect to="/Encarregado"/>):null}     
     <div id="formContent">
-    <div class="fadeIn first">
-    
-    <div alt="User Icon"><HiFingerPrint size={70} /> </div>
+    <div class="fadeIn first">   
+    <div><HiFingerPrint size={50} /> COTRIPAM INDCOM </div>
     </div>
     <form>
-      <input type="email" id="Login" class="fadeIn second" name="login" placeholder="login" onChange={(e) => setEmail(e.target.value)}/>
-      <input type="password" id="Senha" class="fadeIn third" name="senha" placeholder="password" onChange={(e) => setSenha(e.target.value)}/>
+      <input type="email" id="Login" class="fadeIn second" name="login" placeholder="Usuario" onChange={(e) => setEmail(e.target.value)}/>
+      <input type="password" id="Senha" class="fadeIn third" name="senha" placeholder="Senha" onChange={(e) => setSenha(e.target.value)}/>
       <input type="button" class="fadeIn fourth" value="Logar" onClick={Logar}/>
     </form>
     <div id="formFooter">

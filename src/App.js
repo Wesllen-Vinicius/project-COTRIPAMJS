@@ -18,7 +18,7 @@ function App () {
     <Route exact path="/Encarregado"  component={Encarregado}/>
     <Route exact path="/Produtos"  component={Produtos}/>
     <Route exact path="/Faltas" component={Faltas}/>
-    <PrivateRoute exact path="/Adm"  component={Adm}/>
+    <Route exact path="/Adm"  component={Adm}/>
     </Router>
     </Provider>
     )
