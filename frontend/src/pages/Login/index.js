@@ -1,14 +1,38 @@
 import React, { useState } from "react";
 import {Redirect} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
+import { useHistory } from "react-router-dom";
 import "./login.css";
+import Axios from "axios";
 
 function Login (){
 
-  const Dispatch = useDispatch ();
+  const dispatch = useDispatch ();
 
   const [email,setEmail] = useState ('');
   const [senha,setSenha] = useState ('');
+  const [mensagem,setMensagem] = useState ('');
+  const history = useHistory();
+
+  function logar() {
+    if (email === "" || senha === "") {
+      setMensagem("Usuário/senha não informados!!");
+    } else {
+      Axios.post("http://localhost:3001/api/login", {
+        email: email,
+        senha: senha,
+      }).then(response => {
+        setMensagem(response.data.message);
+        if (response.data.message === "Logado!") {
+          dispatch({
+            type: "LOG_IN",
+            usuarioEmail: email,
+          });
+          history.push("/Encarregado");
+        }
+      });
+    }
+  }
 
   
   
@@ -22,7 +46,8 @@ function Login (){
     <form>
       <input type="email" id="Login" class="fadeIn second" name="login" placeholder="Usuario" onChange={(e) => setEmail(e.target.value)}/>
       <input type="password" id="Senha" class="fadeIn third" name="senha" placeholder="Senha" onChange={(e) => setSenha(e.target.value)}/>
-      <input type="button" class="fadeIn fourth" value="Logar" />
+      <input type="button" class="fadeIn fourth" value="Logar" onClick={logar} />
+      <p>{mensagem}</p>
     </form>
     <div id="formFooter">
     </div>

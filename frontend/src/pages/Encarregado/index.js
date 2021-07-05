@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import Header from '../../components/header';
 import Footer from '../../components/footer/footer';
+import axios from 'axios';
 
 function Encarregado () {
     const[abate, setAbate] = useState("")
@@ -19,9 +20,43 @@ function Encarregado () {
     const[tripaGrossa, setTpgrossa] = useState("")
     const[tripaFina, setTpfina] = useState("")
     const[dataDiaria, setDataDiaria] = useState("")
+    const [mensagem, setMensagem] = useState("")
+    const usuarioEmail = useSelector(state => state.usuarioEmail);
+
+    const toltal = 0;
+
+    const cadastrar = () => {
+      axios.post("http://localhost:3001/api/encarregados", {
+        abate:abate,
+        bois_abate:bois,
+        condenados:condenados,
+        primeiro_corte:primeiro * 630 ,
+        segundo_corte:segundo * 470,
+        terceiro_corte:terceiro * 320,
+        quarto_corte:quarto * 170,
+        culatra:culatra,
+        abomaso:abomaso,
+        fundo:fundo,
+        tripa_grossa:tripaGrossa,
+        tripa_fina:tripaFina,
+        data_dia:dataDiaria,
+        cod_encarregado:usuarioEmail,
+        total:abate - condenados,
+        vacas_abate:abate - bois,
+        data: new Date().toLocaleDateString("pt-BR"),
+      })
+        .then(response => {
+          setMensagem(response.data.message);
+        })
+        .catch(err => {
+          setMensagem(err.data.message);
+        });
+    };
+  
 
     return ( 
     <div>
+      {useSelector((state) => state.usuarioLogado)===0 ? (<Redirect to="/"/>):null}
     <div >
    
     <Header/>
@@ -89,7 +124,8 @@ function Encarregado () {
         <div class="card-footer">
           <div class="row">
             <div class="col-md-1 col-sm-12">
-                <input  type="button" class="btn btn-success" value="enviar" id="enviar" />
+                <input  type="button" class="btn btn-success" value="enviar" id="enviar" onClick={cadastrar} />
+                <p>{mensagem}</p>
             </div>
           </div>
         </div>

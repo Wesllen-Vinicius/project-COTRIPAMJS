@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+
 import './footer.css'
 function Footer()  {
     return ( 
@@ -11,7 +11,7 @@ function Footer()  {
 				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
 					<p>Cotripam Indústria e Comércio de Tripas Portal do Amazonas LTDA-ME 
                     - AC - Brasil</p>
-					<p class="h6">© COTRIPAM IND E COM.<a class="text-green ml-2" target="_blank"></a></p>
+					<p class="h6">© COTRIPAM IND E COM.</p>
 				</div>
 			</div>	
 		</div>

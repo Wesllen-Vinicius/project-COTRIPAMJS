@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  usuarioName: "",
+  usuarioEmail: "",
   usuarioLogado: 0,
 };
 
@@ -9,13 +9,13 @@ function usuarioReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         usuarioLogado: 1,
-        usuarioName: action.usuarioName,
+        usuarioEmail: action.usuarioEmail,
       };
     case "LOG_OUT":
       return {
         ...state,
         usuarioLogado: 0,
-        usuarioName: "",
+        usuarioEmail: "",
       };
     default:
       return state;

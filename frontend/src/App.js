@@ -6,6 +6,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import Login from "./pages/Login/index";
 import Encarregado from "../src/pages/Encarregado/index"
 import Adm from "../src/pages/Adm/adm"
+import Faltas from "./pages/Encarregado/faltas";
+import Produtos from "./pages/Encarregado/produtos";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route exact path="/Encarregado" component={Encarregado} />
           <Route exact path="/Adm" component={Adm} />
+          <Route exact path="/Faltas" component={Faltas} />
+          <Route exact path="/Produtos" component={Produtos} />
         </Router>
       </PersistGate>
     </Provider>

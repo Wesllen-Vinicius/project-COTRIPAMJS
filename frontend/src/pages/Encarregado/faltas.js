@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import firebase from '../../config/firebase';
+
 import Header from '../../components/header';
 import Footer from '../../components/footer/footer';
 
@@ -50,7 +50,7 @@ function Faltas (){
         <div class="card-footer">
           <div class="row">
             <div class="col-md-1 col-sm-12">
-                <input onClick={gravarFaltas} type="button" class="btn btn-success" value="enviar" id="enviarFaltas" />
+                <input  type="button" class="btn btn-success" value="enviar" id="enviarFaltas" />
             </div>
           </div>
         </div>

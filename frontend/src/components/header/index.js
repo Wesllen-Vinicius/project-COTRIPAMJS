@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { useDispatch} from 'react-redux';
 
 function Header()  {
+  const dispatch = useDispatch ();
     return (
     <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark barratopo">
@@ -13,13 +15,17 @@ function Header()  {
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
         <li class="nav-item">
-          <Link class="nav-link"  to="/Encarregado">Resumo</Link>
+          <Link class="nav-link"  to="/Encarregado">Resumo diario</Link>
+        </li>
+       
+        <li class="nav-item">
+          <Link class="nav-link" to="/produtos">Produtos</Link>
         </li>
         <li class="nav-item">
           <Link class="nav-link" to="/Faltas">Faltas</Link>
         </li>
         <li class="nav-item">
-          <Link class="nav-link" to="/produtos">Produtos</Link>
+        <Link class="nav-link" onClick={() => dispatch({ type: "LOG_OUT" })}>Sair</Link>
         </li>
       </ul>
     </div>

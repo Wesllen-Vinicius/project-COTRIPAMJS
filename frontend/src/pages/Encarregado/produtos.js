@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import firebase from '../../config/firebase';
+import axios from 'axios'
+
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/footer';
 
@@ -13,15 +14,26 @@ function Produtos  (){
     const[perox, setPerox] = useState("")
     const[bb, setBb] = useState("")
     const[dataDiaria, setDataProdutos] = useState("")
-    
-    const db = firebase.firestore()
+    const[mensagem, setMensagem] = useState("")
 
-    function gravarProdutos (){
-      db.collection("produtos").add({
-        salFino: salFino, salGrosso: salGrosso, metab: metab,
-        perox: perox, bb: bb, dataDiaria: dataDiaria,
+
+    const cadastrar = () => {
+      axios.post("http://localhost:3001/api/produtos", {
+        sal_fino:salFino,
+        sal_grosso:salGrosso,
+        perox:perox,
+        metab:metab,
+        data_dia:dataDiaria,
+        data: new Date().toLocaleDateString("pt-BR"),
       })
-    }
+        .then(response => {
+          setMensagem(response.data.message);
+        })
+        .catch(err => {
+          setMensagem(err.data.message);
+        });
+    };
+    
     return (
     <div>
     {useSelector((state) => state.usuarioLogado)===0 ? (<Redirect to="/"/>):null}
@@ -60,8 +72,9 @@ function Produtos  (){
         <div class="card-footer">
           <div class="row">
             <div class="col-md-1 col-sm-12">
-                <input onClick={gravarProdutos} type="button" class="btn btn-success" value="enviar" id="enviarProdutos" />
+                <input onClick={cadastrar} type="button" class="btn btn-success" value="enviar" id="enviarProdutos" />
             </div>
+            <p>{mensagem}</p>
           </div>
         </div>
       </div>
