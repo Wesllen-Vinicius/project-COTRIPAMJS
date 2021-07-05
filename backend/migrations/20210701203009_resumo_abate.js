@@ -1,9 +1,11 @@
 
 exports.up = function(knex) {
-    return knex.schema.createTable("encarregados", table => {
+    return knex.schema.createTable("resumo_abate", table => {
         table.increments("id").primary();
         table.double("abate").notNull();
         table.double("bois_abate").notNull();
+        table.double("vacas_abate");
+        table.double("total");
         table.double("condenados").notNull();
         table.double("primeiro_corte").notNull();
         table.double("segundo_corte").notNull();
@@ -17,7 +19,8 @@ exports.up = function(knex) {
         table.date("data_dia").notNull();
         table.string("data").notNull();
 
-        table.string("cod_encarregado").references("email").inTable("users");
+        
+        table.string("cod_encarregado").references("id").inTable("users");
       });
 };
 

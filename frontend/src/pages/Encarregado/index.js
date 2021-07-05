@@ -23,8 +23,10 @@ function Encarregado () {
     const [mensagem, setMensagem] = useState("")
     const usuarioEmail = useSelector(state => state.usuarioEmail);
 
+    const toltal = 0;
+
     const cadastrar = () => {
-      axios.post("http://localhost:3001/api/encarregados", {
+      axios.post("http://localhost:3001/api/resumoDiario", {
         abate:abate,
         bois_abate:bois,
         condenados:condenados,
@@ -39,6 +41,8 @@ function Encarregado () {
         tripa_fina:tripaFina,
         data_dia:dataDiaria,
         cod_encarregado:usuarioEmail,
+        total:abate - condenados,
+        vacas_abate:abate - bois,
         data: new Date().toLocaleDateString("pt-BR"),
       })
         .then(response => {
@@ -52,7 +56,7 @@ function Encarregado () {
 
     return ( 
     <div>
-      {useSelector((state) => state.usuarioLogado)===0 ? (<Redirect to="/"/>):null}
+      {useSelector((state) => state.usuarioLogado || state.usuarioAdmin)===0 ?  (<Redirect to="/"/>):null}
     <div >
    
     <Header/>
