@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import Header from '../../components/header';
 import Footer from '../../components/footer/footer';
 import axios from 'axios';
+import {FaExclamationTriangle} from 'react-icons/fa'
 
 function Encarregado () {
     const[abate, setAbate] = useState("")
@@ -21,42 +22,63 @@ function Encarregado () {
     const[tripaFina, setTpfina] = useState("")
     const[dataDiaria, setDataDiaria] = useState("")
     const [mensagem, setMensagem] = useState("")
+    const [mocoto, setMocoto] = useState("")
     const usuarioEmail = useSelector(state => state.usuarioEmail);
 
     const toltal = 0;
 
-    const cadastrar = () => {
-      axios.post("http://localhost:3001/api/encarregados", {
+    const cadastrarResumo = () => {
+      axios.post("http://localhost:3001/api/abate", {
         abate:abate,
         bois_abate:bois,
+        vacas_abate:abate - bois,
         condenados:condenados,
+        total:abate - condenados,
+        data: new Date().toLocaleDateString("pt-BR"),
+        data_dia:dataDiaria,
+      })
+      .then(response => {
+        setMensagem(response.data.message);
+      })
+      .catch(err => {
+        setMensagem(err.data.message);
+      });
+      axios.post("http://localhost:3001/api/serosa", {
         primeiro_corte:primeiro * 630 ,
         segundo_corte:segundo * 470,
         terceiro_corte:terceiro * 320,
         quarto_corte:quarto * 170,
+        data: new Date().toLocaleDateString("pt-BR"),
+        data_dia:dataDiaria
+      })
+      .then(response => {
+        setMensagem(response.data.message);
+      })
+      .catch(err => {
+        setMensagem(err.data.message);
+      });
+      axios.post("http://localhost:3001/api/tripaCozida", {
         culatra:culatra,
         abomaso:abomaso,
+        mocoto:mocoto,
         fundo:fundo,
         tripa_grossa:tripaGrossa,
         tripa_fina:tripaFina,
-        data_dia:dataDiaria,
-        cod_encarregado:usuarioEmail,
-        total:abate - condenados,
-        vacas_abate:abate - bois,
         data: new Date().toLocaleDateString("pt-BR"),
+        data_dia:dataDiaria,
       })
-        .then(response => {
-          setMensagem(response.data.message);
-        })
-        .catch(err => {
-          setMensagem(err.data.message);
-        });
+      .then(response => {
+        setMensagem(response.data.message);
+      })
+      .catch(err => {
+        setMensagem(err.data.message);
+      });
     };
   
 
     return ( 
     <div>
-      {useSelector((state) => state.usuarioLogado)===0 ? (<Redirect to="/"/>):null}
+      {useSelector((state) => state.usuarioLogado || state.usuarioAdmin)===0 ?  (<Redirect to="/"/>):null}
     <div >
    
     <Header/>
@@ -95,6 +117,10 @@ function Encarregado () {
              </div>
           </div>
           <div class="row mgTopRow">
+          <div class="col-md-1 col-sm-12">
+                <label for="mocoto" class="form-label">Mocoto</label>
+                <input onChange={(e) => setMocoto(e.target.value)} type="number" class="form-control" id="mocoto" placeholder="0"/>
+              </div>
               <div class="col-md-1 col-sm-12">
                 <label for="culatra" class="form-label">Culatra</label>
                 <input onChange={(e) => setCulatra(e.target.value)} type="number" class="form-control" id="culatra" placeholder="0"/>
@@ -124,9 +150,19 @@ function Encarregado () {
         <div class="card-footer">
           <div class="row">
             <div class="col-md-1 col-sm-12">
-                <input  type="button" class="btn btn-success" value="enviar" id="enviar" onClick={cadastrar} />
-                <p>{mensagem}</p>
+                <input  type="button" class="btn btn-success" value="enviar" id="enviar" onClick={cadastrarResumo} />
+                
             </div>
+            {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
+            <p>{mensagem}</p>
+            </div>):null}
+            {(mensagem === "Campos vazios!" ?(<div class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="30" role="img" aria-label="Danger:"><FaExclamationTriangle size={20}/></svg>
+  <div>
+  <p>{mensagem}</p>
+  </div>
+</div>):null)}
+           
           </div>
         </div>
       </div>

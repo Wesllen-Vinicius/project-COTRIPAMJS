@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/footer';
+import {FaExclamationTriangle} from 'react-icons/fa'
 
 function Produtos  (){
 
@@ -24,6 +25,7 @@ function Produtos  (){
         perox:perox,
         metab:metab,
         data_dia:dataDiaria,
+        bb:bb,
         data: new Date().toLocaleDateString("pt-BR"),
       })
         .then(response => {
@@ -36,7 +38,7 @@ function Produtos  (){
     
     return (
     <div>
-    {useSelector((state) => state.usuarioLogado)===0 ? (<Redirect to="/"/>):null}
+    {useSelector((state) => state.usuarioLogado || state.usuarioAdmin)===0 ? (<Redirect to="/Encarregado"/>):null}     
     <Header/>
     <form>
       <div class="card mgTopRow ">
@@ -74,7 +76,15 @@ function Produtos  (){
             <div class="col-md-1 col-sm-12">
                 <input onClick={cadastrar} type="button" class="btn btn-success" value="enviar" id="enviarProdutos" />
             </div>
+            {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
             <p>{mensagem}</p>
+            </div>):null}
+            {(mensagem === "Campos vazios!" ?(<div class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="30" role="img" aria-label="Danger:"><FaExclamationTriangle size={20}/></svg>
+  <div>
+  <p>{mensagem}</p>
+  </div>
+</div>):null)}
           </div>
         </div>
       </div>

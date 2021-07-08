@@ -6,11 +6,9 @@ exports.up = function(knex) {
         table.double("sal_grosso").notNull();
         table.double("metab").notNull();
         table.double("perox").notNull();
+        table.double("bb");
         table.date("data_dia").notNull();
         table.string("data").notNull();
-        table.double("bb");
-        
-        table.double("abate_resumo").references("id").inTable("resumo_abate");
       });
 };
 
