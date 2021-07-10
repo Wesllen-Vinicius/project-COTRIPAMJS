@@ -12,8 +12,10 @@ function Footer()  {
 					<p>Cotripam Indústria e Comércio de Tripas Portal do Amazonas LTDA-ME 
                     - AC - Brasil</p>
 					<p class="h6">© COTRIPAM IND E COM.</p>
+					<span>2021@VOID</span>
 				</div>
 			</div>	
+		
 		</div>
 	    </div>
     </div>

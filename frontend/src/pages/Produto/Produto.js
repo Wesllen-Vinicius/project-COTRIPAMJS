@@ -1,11 +1,18 @@
+import React, { useState, useEffect } from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import axios from 'axios'
+
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/footer';
 
-function Resumos(){
-
- 
+function Produto(){
+const [resumo ,  setResumo] = useState([]);
+    useEffect(() => {
+        axios.get("http://localhost:3001/api/resumo/produtos").then(response => {
+          setResumo(response.data);
+        });
+      }, []);
     return(
 <div>
 <Header/>
@@ -34,9 +41,49 @@ function Resumos(){
     </div>
   </div>
 </nav>
+<div class="tabela mt-3 table-responsive ">
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Sal Fino</th>
+      <th scope="col">Sal Grosso</th>
+      <th scope="col">Metab</th>
+      <th scope="col">Perox</th>
+      <th scope="col">BB</th>
+      <th scope="col">Total</th>
+      <th scope="col">Data dia</th>
+      <th scope="col">Data Cadastro</th>
+      
+    </tr>
+  </thead>
+  
+      {resumo.map(val => {
+          return(
+            <tbody>
+    <tr>
+      <th scope="row">{val.id}</th>
+      <td>{val.sal_fino}</td>
+      <td>{val.sal_grosso}</td>
+      <td>{val.metab}</td>
+      <td>{val.perox}</td>
+      <td>{val.bb}</td>
+      <td>{val.total}</td>
+      <td>{val.data_dia}</td>
+      <td>{val.data}</td>
+     
 
+
+    </tr>
+        
+  </tbody>
+          );
+      })}
+   
+</table>
+</div>
 <Footer/>
 </div>
     );
 }
-export default Resumos;
+export default Produto;

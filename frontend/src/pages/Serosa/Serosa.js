@@ -1,11 +1,19 @@
+import React, { useState, useEffect } from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import axios from 'axios'
+import './tabela.css'
+
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/footer';
 
-function Resumos(){
-
- 
+function Serosa(){
+const [resumo ,  setResumo] = useState([]);
+    useEffect(() => {
+        axios.get("http://localhost:3001/api/resumo/serosa").then(response => {
+          setResumo(response.data);
+        });
+      }, []);
     return(
 <div>
 <Header/>
@@ -34,9 +42,47 @@ function Resumos(){
     </div>
   </div>
 </nav>
+<div class="tabela mt-3 table-responsive ">
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">630</th>
+      <th scope="col">470</th>
+      <th scope="col">320</th>
+      <th scope="col">170</th>
+      <th scope="col">Total</th>
+      <th scope="col data">Data dia</th>
+      <th scope="col">Data Cadastro</th>
+      
+    </tr>
+  </thead>
+  
+      {resumo.map(val => {
+          return(
+            <tbody>
+    <tr>
+      <th scope="row">{val.id}</th>
+      <td>{val.primeiro_corte}</td>
+      <td>{val.segundo_corte}</td>
+      <td>{val.terceiro_corte}</td>
+      <td>{val.quarto_corte}</td>
+      <td>{val.total}</td>
+      <td class="data">{val.data_dia}</td>
+      <td>{val.data}</td>
+     
 
+
+    </tr>
+        
+  </tbody>
+          );
+      })}
+   
+</table>
+</div>
 <Footer/>
 </div>
     );
 }
-export default Resumos;
+export default Serosa;

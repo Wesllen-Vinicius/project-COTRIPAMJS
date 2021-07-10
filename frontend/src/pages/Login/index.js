@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from "react-router-dom";
 import "./login.css";
 import Axios from "axios";
-
+import {FaExclamationTriangle} from 'react-icons/fa'
 
 function Login (){
 
@@ -13,13 +13,13 @@ function Login (){
   const [email,setEmail] = useState ('');
   const [senha,setSenha] = useState ('');
   const [mensagem,setMensagem] = useState ('');
-  const [admin, setAdmin] = useState (false);
+  const [check, setCheck] = useState(false);
   const history = useHistory();
 
   function logar() {
     if (email === "" || senha === "") {
       setMensagem("Usuário/senha não informados!!");
-    } else if(admin === true){
+    } else if(check === true){
       Axios.post("http://localhost:3001/api/login/admin", {
         nome: email,
         senha: senha,
@@ -37,8 +37,8 @@ function Login (){
     }
     
     else{
-      Axios.post("http://localhost:3001/api/login", {
-        email: email,
+      Axios.post("http://localhost:3001/api/encarregados", {
+        nome: email,
         senha: senha,
       }).then(response => {
         setMensagem(response.data.message);
@@ -69,13 +69,27 @@ function Login (){
       <input type="password" id="Senha" class="fadeIn third" name="senha" placeholder="Senha" onChange={(e) => setSenha(e.target.value)}/>
       <input type="button" class="fadeIn fourth" value="Logar" onClick={logar} />
       <div class=" form-switch">
-      <input class="form-check-input me-2 " type="checkbox" id="flexSwitchCheckDefault" onChange = {(e) => setAdmin({admin: !admin.admin})} defaultChecked={admin} />
+      <input class="form-check-input me-2 mb-3 " type="checkbox" id="flexSwitchCheckDefault" onChange = {(e) => setCheck(e.target.checked)} />
       <label class="form-check-label " for="flexSwitchCheckDefault">Logar como ADM</label>
       
       </div>
-      <p>{mensagem}</p>
+     
     </form>
     <div id="formFooter">
+      {mensagem === "Usuario não Existe!" ? (<div class="alert alert-danger  menssagem" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="30" role="img" aria-label="Danger:"><FaExclamationTriangle size={20}/></svg>
+  <div>
+  <p>{mensagem}</p>
+  </div>
+</div>): null}
+{mensagem === "Usuário ou Senha incorretos!" ? (<div class="alert alert-danger  menssagem" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="30" role="img" aria-label="Danger:"><FaExclamationTriangle size={20}/></svg>
+  <div>
+  <p>{mensagem}</p>
+  </div>
+</div>): null}
+    
+           
     </div>
   </div>
 </div>

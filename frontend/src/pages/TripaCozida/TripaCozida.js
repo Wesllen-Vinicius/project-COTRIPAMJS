@@ -1,11 +1,18 @@
+import React, { useState, useEffect } from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import axios from 'axios'
+
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/footer';
 
-function Resumos(){
-
- 
+function TripaCozida(){
+const [resumo ,  setResumo] = useState([]);
+    useEffect(() => {
+        axios.get("http://localhost:3001/api/resumo/tripaCozida").then(response => {
+          setResumo(response.data);
+        });
+      }, []);
     return(
 <div>
 <Header/>
@@ -34,9 +41,51 @@ function Resumos(){
     </div>
   </div>
 </nav>
+<div class="tabela mt-3 table-responsive ">
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Mocoto</th>
+      <th scope="col">Culatra</th>
+      <th scope="col">Abomaso</th>
+      <th scope="col">Fundo</th>
+      <th scope="col">Tripa Grossa</th>
+      <th scope="col">Tripa Fina</th>
+      <th scope="col">Total</th>
+      <th scope="col">Data dia</th>
+      <th scope="col">Data Cadastro</th>
+      
+    </tr>
+  </thead>
+  
+      {resumo.map(val => {
+          return(
+            <tbody>
+    <tr>
+      <th scope="row">{val.id}</th>
+      <td>{val.mocoto}</td>
+      <td>{val.culatra}</td>
+      <td>{val.abomaso}</td>
+      <td>{val.fundo}</td>
+      <td>{val.tripa_grossa}</td>
+      <td>{val.tripa_fina}</td>
+      <td>{val.total}</td>
+      <td>{val.data_dia}</td>
+      <td>{val.data}</td>
+     
 
+
+    </tr>
+        
+  </tbody>
+          );
+      })}
+   
+</table>
+</div>
 <Footer/>
 </div>
     );
 }
-export default Resumos;
+export default TripaCozida;
