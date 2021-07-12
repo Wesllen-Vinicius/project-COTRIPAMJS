@@ -3,8 +3,6 @@ import {Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {FaExclamationTriangle} from 'react-icons/fa'
-
-
 import Header from '../../components/header';
 import Footer from '../../components/footer/footer';
 
@@ -35,7 +33,7 @@ function Faltas (){
   
   return(
     <div>
-    {useSelector((state) =>  state.usuarioLogado === 1 || state.usuarioLogado)>0 ? (<Redirect to="/Encarregado"/>):null}      
+    {useSelector((state) => state.usuarioLogado || state.usuarioAdmin)===0 ?  (<Redirect to="/"/>):null}  
     <Header/>
     <form>
       <div class="card mgTopRow ">

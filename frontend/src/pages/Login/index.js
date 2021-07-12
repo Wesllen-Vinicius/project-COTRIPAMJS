@@ -65,8 +65,8 @@ function Login (){
     <div>  COTRIPAM INDCOM </div>
     </div>
     <form>
-      <input type="email" id="Login" class="fadeIn second" name="login" placeholder="Usuario" onChange={(e) => setEmail(e.target.value)}/>
-      <input type="password" id="Senha" class="fadeIn third" name="senha" placeholder="Senha" onChange={(e) => setSenha(e.target.value)}/>
+      <input type="email" id="Login" class="fadeIn second Caixa" name="login" placeholder="Usuario" onChange={(e) => setEmail(e.target.value)}/>
+      <input type="password" id="Senha" class="fadeIn third Caixa" name="senha" placeholder="Senha" onChange={(e) => setSenha(e.target.value)}/>
       <input type="button" class="fadeIn fourth" value="Logar" onClick={logar} />
       <div class=" form-switch">
       <input class="form-check-input me-2 mb-3 " type="checkbox" id="flexSwitchCheckDefault" onChange = {(e) => setCheck(e.target.checked)} />

@@ -63,6 +63,35 @@ app.listen(3001, () => {
     });
   });
   
+  app.post("/api/casEncarregados", async (req, res) => {
+    const nome = req.body.nome;
+    const senha = req.body.senha;
+    const cpf = req.body.cpf;
+    const unidade = req.body.unidade;
+    const data_nascimento = req.body.data_nascimento;
+
+    const sqlInsert =
+      "INSERT INTO encarregados (nome, senha, cpf, unidade, data_nascimento) VALUES (?,?,?,?,?)";
+    db.query(
+      sqlInsert,
+      [
+        nome,
+        senha,
+        cpf,
+        unidade,
+        data_nascimento
+      ],
+      (err) => {
+        console.log(err)
+        if (err) {
+          res.json({ message: "Campos vazios!" });
+        } else {
+          res.json({ message: "Cadastro realizado com sucesso!" });
+        }    
+      }  
+    );
+  }); 
+
   app.post("/api/abate", async (req, res) => {
     const abate = req.body.abate;
     const bois_abate = req.body.bois_abate;
