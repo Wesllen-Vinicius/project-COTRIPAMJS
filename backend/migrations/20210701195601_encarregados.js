@@ -3,7 +3,9 @@ exports.up = function (knex) {
       table.increments("id").primary();
       table.string("nome", 150).notNull();
       table.string('senha').notNull();
-      table.string('unidade').notNull();      
+      table.string('cpf').notNull();
+      table.string('unidade').notNull();
+      table.string('data_nascimento').notNull();      
     });
   };
   exports.down = function (knex) {

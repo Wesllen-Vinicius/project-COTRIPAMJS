@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import axios from 'axios'
-
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/footer';
 
 function Resumos(){
-const [resumo ,  setResumo] = useState([]);
+
  
     return(
 <div>

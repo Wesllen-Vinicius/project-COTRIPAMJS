@@ -41,10 +41,11 @@ const [resumo ,  setResumo] = useState([]);
     </div>
   </div>
 </nav>
-<table class="table">
-  <thead>
+<div class="tabela mt-3 table-responsive ">
+<table class="table table-hover">
+  <thead class="thead-dark">
     <tr>
-      <th scope="col">id</th>
+      <th scope="col">ID</th>
       <th scope="col">Abate</th>
       <th scope="col">Bois abatidos</th>
       <th scope="col">Vacas</th>
@@ -78,6 +79,7 @@ const [resumo ,  setResumo] = useState([]);
       })}
    
 </table>
+</div>
 <Footer/>
 </div>
     );

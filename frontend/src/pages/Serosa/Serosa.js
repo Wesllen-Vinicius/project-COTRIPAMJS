@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import axios from 'axios'
+import './tabela.css'
 
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/footer';
@@ -41,16 +42,17 @@ const [resumo ,  setResumo] = useState([]);
     </div>
   </div>
 </nav>
-<table class="table">
-  <thead>
+<div class="tabela mt-3 table-responsive ">
+<table class="table table-hover">
+  <thead class="thead-dark">
     <tr>
-      <th scope="col">id</th>
+      <th scope="col">ID</th>
       <th scope="col">630</th>
       <th scope="col">470</th>
       <th scope="col">320</th>
       <th scope="col">170</th>
       <th scope="col">Total</th>
-      <th scope="col">Data dia</th>
+      <th scope="col data">Data dia</th>
       <th scope="col">Data Cadastro</th>
       
     </tr>
@@ -66,7 +68,7 @@ const [resumo ,  setResumo] = useState([]);
       <td>{val.terceiro_corte}</td>
       <td>{val.quarto_corte}</td>
       <td>{val.total}</td>
-      <td>{val.data_dia}</td>
+      <td class="data">{val.data_dia}</td>
       <td>{val.data}</td>
      
 
@@ -78,6 +80,7 @@ const [resumo ,  setResumo] = useState([]);
       })}
    
 </table>
+</div>
 <Footer/>
 </div>
     );

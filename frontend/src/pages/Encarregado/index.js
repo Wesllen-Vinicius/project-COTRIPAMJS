@@ -23,9 +23,9 @@ function Encarregado () {
     const[dataDiaria, setDataDiaria] = useState("")
     const [mensagem, setMensagem] = useState("")
     const [mocoto, setMocoto] = useState("")
-    const usuarioEmail = useSelector(state => state.usuarioEmail);
+    
 
-    const toltal = 0;
+    
 
     const cadastrarResumo = () => {
       axios.post("http://localhost:3001/api/abate", {
