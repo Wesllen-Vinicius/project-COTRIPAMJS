@@ -14,6 +14,7 @@ import Serosa from "./pages/Serosa/Serosa";
 import TripaCozida from "./pages/TripaCozida/TripaCozida";
 import Produto from "./pages/Produto/Produto";
 import CadastroEncarregado from "./pages/Encarregado/CadastroEncarregados";
+import TripaDeExportacao from './pages/TripaDeExportacao/TripaDeExpotacao';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/Resumo/Produto" component={Produto} />
           <Route exact path="/Resumo/TripaCozida" component={TripaCozida} />
           <Route exact path="/CadastroEncarregado" component={CadastroEncarregado} />
+          <Route exact path="/TripaDeExportacao" component={TripaDeExportacao} />
         </Router>
       </PersistGate>
     </Provider>

@@ -1,0 +1,10 @@
+.back{
+    background-color: #0188BB;
+    
+}
+.back a{
+    color: black;
+}
+.back a:hover{
+    color:white;
+}

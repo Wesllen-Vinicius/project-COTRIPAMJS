@@ -56,7 +56,7 @@ function Login (){
   
   
   return (
-    <div class="bacgroud">
+    <div class="backgroud">
     <div class="wrapper fadeInDown">
       {useSelector((state) => state.usuarioLogado || state.usuarioAdmin)>0 ? (<Redirect to="/Encarregado"/>):null}     
     <div id="formContent">
@@ -65,7 +65,7 @@ function Login (){
     
   
     </div>
-    <div class="col-12 row ">
+    <div class="col-12 row">
     <div class="esquerda col-6"><img  class="img"/></div>
     <div class="direita col-6">
     <div class="form-login mt-5">

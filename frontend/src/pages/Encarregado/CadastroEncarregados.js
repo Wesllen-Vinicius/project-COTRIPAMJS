@@ -37,33 +37,40 @@ function CadastroEncarregado(){
     return(
         <div>
             <Header/>
+            {useSelector((state) => state.usuarioLogado || state.usuarioAdmin)===0 ?  (<Redirect to="/"/>):null} 
             {useSelector((state) =>  state.usuarioLogado === 1 || state.usuarioLogado)>0 ? (<Redirect to="/Encarregado"/>):null}   
-            <div class="mx-auto">
-            <div class="col-md-10 col-sm-12">
+            <h5 class="card-header">Cadastro de Encarregado</h5>
+            <div class="card-body">
+            <div class="row">
+            <div class="col-md-2 col-sm-12">
                 <label for="nome" class="form-label">Nome</label>
                 <input  onChange={(e) => setNome(e.target.value)} type="text" class="form-control"  placeholder="Nome"/>
              </div>
-             <div class="col-md-10 col-sm-12">
+             <div class="col-md-2 col-sm-12">
              <label for="inputPassword" class="col-sm-2 col-form-label">Senha</label>
                <input type="password" class="form-control" id="inputPassword" onChange={(e) => setSenha(e.target.value)}></input>
           
              </div>
-             <div class="col-md-10 col-sm-12">
+             <div class="col-md-2 col-sm-12">
                <label for="cpf" class="form-label">CPF</label>
                <input onChange={(e) => setCPF(e.target.value)} type="text" class="form-control"  placeholder="CPF"/>
              </div>
-             <div class="col-md-10 col-sm-12">
+             <div class="col-md-2 col-sm-12">
                <label for="data_nascimento" class="form-label">Data De Nascimento</label>
                <input onChange={(e) => setDataNas(e.target.value)} type="date" class="form-control" placeholder="Data de Nacimento"/>
              </div>
-             <div class="col-md-10 col-sm-12">
+             <div class="col-md-2 col-sm-12">
                <label for="unidade" class="form-label">Unidade</label>
                <input onChange={(e) => setUnidade(e.target.value)} type="text" class="form-control"  placeholder="Unidade"/>
              </div> 
+             </div>
+             <div class="card-footer">
+              <div class="row">
              <div class="col-md-1 col-sm-12">
                 <input  type="button" class="btn btn-success" value="enviar" id="enviar" onClick={cadastrarEncarregados} />
-                
             </div>
+            </div>
+           
             {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
             <p>{mensagem}</p>
             </div>):null}
@@ -73,8 +80,8 @@ function CadastroEncarregado(){
             <p>{mensagem}</p>
             </div>
             </div>):null)}
-             
-             </div>
+            </div>
+            </div>
              <Footer/>
           </div>
              

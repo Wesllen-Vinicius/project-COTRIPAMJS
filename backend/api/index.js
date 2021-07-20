@@ -3,21 +3,28 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const mysql = require("mysql");
+const bcrypt = require('bcrypt');
+
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "Wesllen09089909@",
-  database: "cotripamjs",
-});
+
+
 
 app.listen(3001, () => {
     console.log("Projeto cotripamjs, Rodando na porta 3001");
   });
+
+  const db = mysql.createPool({
+    host: "localhost",
+    user: "root",
+    password: "Wesllen09089909@",
+    database: "cotripamjs",
+  });
+  
+
   app.post("/api/login/admin", async (req, res) => {
     const senha = req.body.senha;
     const nome = req.body.nome;
@@ -48,7 +55,7 @@ app.listen(3001, () => {
       if (err) {
       }
       if (results.length > 0) {
-        if (senha === results[0].senha) {
+        if (senha === results[0].senha_encryp) {
           res.json({ loggedIn: true, message: "Logado!" });
         } else {
           res.json({
@@ -69,28 +76,57 @@ app.listen(3001, () => {
     const cpf = req.body.cpf;
     const unidade = req.body.unidade;
     const data_nascimento = req.body.data_nascimento;
-
+    const senha_encryp = await bcrypt.hash(senha, 10);
     const sqlInsert =
-      "INSERT INTO encarregados (nome, senha, cpf, unidade, data_nascimento) VALUES (?,?,?,?,?)";
+      "INSERT INTO encarregados (nome, senha_encryp, cpf, unidade, data_nascimento) VALUES (?,?,?,?,?)";
     db.query(
       sqlInsert,
-      [
+     [
         nome,
-        senha,
+        senha_encryp,
         cpf,
         unidade,
-        data_nascimento
+       data_nascimento
       ],
       (err) => {
         console.log(err)
         if (err) {
           res.json({ message: "Campos vazios!" });
         } else {
-          res.json({ message: "Cadastro realizado com sucesso!" });
+        res.json({ message: "Cadastro realizado com sucesso!" });
         }    
-      }  
-    );
-  }); 
+     }  
+   );
+ }); 
+
+
+  //app.post("/api/casTeste", async (req, res) => {
+    //try {
+     // const {email, senha} = req.body;
+     // const hash = await bcrypt.hash(senha, 4);
+     // const sqlInsert =
+     // "INSERT INTO teste_cas (email, hash) VALUES (?,?)";
+   // db.query(
+    //  sqlInsert,
+    //  [
+    //    email,
+    //    hash
+    //  ],
+    //  (err) => {
+    //    console.log(err)
+     //   if (err) {
+     //     res.json({ message: "Campos vazios!" });
+     //   } else {
+    //      res.json({ message: "Cadastro realizado com sucesso!" });
+    //    }
+    //        
+     // }     
+   // );
+  //  } catch(e) {
+   // console.log(e);
+  //   }
+     
+ // }); 
 
   app.post("/api/abate", async (req, res) => {
     const abate = req.body.abate;
