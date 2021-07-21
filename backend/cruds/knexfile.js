@@ -4,7 +4,7 @@ module.exports = {
       connection: {
         database: "cotripamjs",
         user: "root",
-        password: "12345678",
+        password: "Wesllen09089909@",
       },
       pool: {
         min: 2,

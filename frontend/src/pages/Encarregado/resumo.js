@@ -10,6 +10,7 @@ function Resumos(){
 <div>
 <Header/>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+{useSelector((state) => state.usuarioLogado || state.usuarioAdmin)===0 ?  (<Redirect to="/"/>):null} 
 {useSelector((state) =>  state.usuarioLogado === 1 || state.usuarioLogado)>0 ? (<Redirect to="/Encarregado"/>):null}   
 <div class="container-fluid">
     <Link class="navbar-brand" to="/Resumos">Resumos</Link>
@@ -17,12 +18,15 @@ function Resumos(){
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+    <ul class="navbar-nav">
         <li class="nav-item">
           <Link class="nav-link " to="/Resumo/Abate">Abate</Link>
         </li>
         <li class="nav-item">
         <Link class="nav-link " to="/Resumo/Serosa">Serosa</Link>
+        </li>
+        <li class="nav-item">
+        <Link class="nav-link " to="/Resumo/Faltas">Faltas</Link>
         </li>
         <li class="nav-item">
         <Link class="nav-link " to="/Resumo/TripaCozida">Tripa Cozida</Link>

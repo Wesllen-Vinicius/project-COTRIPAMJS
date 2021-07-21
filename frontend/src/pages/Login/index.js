@@ -56,18 +56,23 @@ function Login (){
   
   
   return (
+    <div class="backgroud">
     <div class="wrapper fadeInDown">
       {useSelector((state) => state.usuarioLogado || state.usuarioAdmin)>0 ? (<Redirect to="/Encarregado"/>):null}     
     <div id="formContent">
 
     <div class="fadeIn first">   
     
-    <div>  COTRIPAM INDCOM </div>
+  
     </div>
+    <div class="col-12 row">
+    <div class="esquerda col-6"><img  class="img"/></div>
+    <div class="direita col-6">
+    <div class="form-login mt-5">
     <form>
-      <input type="email" id="Login" class="fadeIn second Caixa" name="login" placeholder="Usuario" onChange={(e) => setEmail(e.target.value)}/>
-      <input type="password" id="Senha" class="fadeIn third Caixa" name="senha" placeholder="Senha" onChange={(e) => setSenha(e.target.value)}/>
-      <input type="button" class="fadeIn fourth" value="Logar" onClick={logar} />
+      <input type="email" id="Login" class="fadeIn second Caixa input" name="login" placeholder="Usuario" onChange={(e) => setEmail(e.target.value)}/>
+      <input type="password" id="Senha" class="fadeIn third Caixa input" name="senha" placeholder="Senha" onChange={(e) => setSenha(e.target.value)}/>
+      <input type="button" class="fadeIn fourth button" value="Logar" onClick={logar} />
       <div class=" form-switch">
       <input class="form-check-input me-2 mb-3 " type="checkbox" id="flexSwitchCheckDefault" onChange = {(e) => setCheck(e.target.checked)} />
       <label class="form-check-label " for="flexSwitchCheckDefault">Logar como ADM</label>
@@ -76,22 +81,20 @@ function Login (){
      
     </form>
     <div id="formFooter">
-      {mensagem === "Usuario não Existe!" ? (<div class="alert alert-danger  menssagem" role="alert">
-  <svg class="bi flex-shrink-0 me-2" width="24" height="30" role="img" aria-label="Danger:"><FaExclamationTriangle size={20}/></svg>
+      {mensagem !== "" ? (<div class=" menssagem" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="30" role="img" aria-label="Danger:"><FaExclamationTriangle size={20} color="red"/></svg>
   <div>
   <p>{mensagem}</p>
   </div>
 </div>): null}
-{mensagem === "Usuário ou Senha incorretos!" ? (<div class="alert alert-danger  menssagem" role="alert">
-  <svg class="bi flex-shrink-0 me-2" width="24" height="30" role="img" aria-label="Danger:"><FaExclamationTriangle size={20}/></svg>
-  <div>
-  <p>{mensagem}</p>
-  </div>
-</div>): null}
-    
+</div>
+</div>
+</div>
+
            
     </div>
   </div>
+</div>
 </div>
 )
 };

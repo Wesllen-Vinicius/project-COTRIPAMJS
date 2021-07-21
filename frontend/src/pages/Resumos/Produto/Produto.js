@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import axios from 'axios'
-import './tabela.css'
 
-import Header from '../../components/header/index'
-import Footer from '../../components/footer/footer';
+import Header from '../../../components/header/index'
+import Footer from '../../../components/footer/footer';
 
-function Serosa(){
+function Produto(){
 const [resumo ,  setResumo] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:3001/api/resumo/serosa").then(response => {
+        axios.get("http://localhost:3001/api/resumo/produtos").then(response => {
           setResumo(response.data);
         });
       }, []);
@@ -25,12 +24,15 @@ const [resumo ,  setResumo] = useState([]);
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+    <ul class="navbar-nav">
         <li class="nav-item">
           <Link class="nav-link " to="/Resumo/Abate">Abate</Link>
         </li>
         <li class="nav-item">
         <Link class="nav-link " to="/Resumo/Serosa">Serosa</Link>
+        </li>
+        <li class="nav-item">
+        <Link class="nav-link " to="/Resumo/Faltas">Faltas</Link>
         </li>
         <li class="nav-item">
         <Link class="nav-link " to="/Resumo/TripaCozida">Tripa Cozida</Link>
@@ -47,12 +49,13 @@ const [resumo ,  setResumo] = useState([]);
   <thead class="thead-dark">
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">630</th>
-      <th scope="col">470</th>
-      <th scope="col">320</th>
-      <th scope="col">170</th>
+      <th scope="col">Sal Fino</th>
+      <th scope="col">Sal Grosso</th>
+      <th scope="col">Metab</th>
+      <th scope="col">Perox</th>
+      <th scope="col">BB</th>
       <th scope="col">Total</th>
-      <th scope="col data">Data dia</th>
+      <th scope="col">Data dia</th>
       <th scope="col">Data Cadastro</th>
       
     </tr>
@@ -63,12 +66,13 @@ const [resumo ,  setResumo] = useState([]);
             <tbody>
     <tr>
       <th scope="row">{val.id}</th>
-      <td>{val.primeiro_corte}</td>
-      <td>{val.segundo_corte}</td>
-      <td>{val.terceiro_corte}</td>
-      <td>{val.quarto_corte}</td>
+      <td>{val.sal_fino}</td>
+      <td>{val.sal_grosso}</td>
+      <td>{val.metab}</td>
+      <td>{val.perox}</td>
+      <td>{val.bb}</td>
       <td>{val.total}</td>
-      <td class="data">{val.data_dia}</td>
+      <td>{val.data_dia}</td>
       <td>{val.data}</td>
      
 
@@ -85,4 +89,4 @@ const [resumo ,  setResumo] = useState([]);
 </div>
     );
 }
-export default Serosa;
+export default Produto;

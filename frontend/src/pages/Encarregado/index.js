@@ -23,9 +23,18 @@ function Encarregado () {
     const[dataDiaria, setDataDiaria] = useState("")
     const [mensagem, setMensagem] = useState("")
     const [mocoto, setMocoto] = useState("")
-    
 
     
+    const totalAbate = abate - condenados;
+    const totalSerosa = (primeiro * 630) + (segundo * 470) + (terceiro* 320) + (quarto*170);
+    const mediaSerosa = totalSerosa/totalAbate;
+    const totalTripaCozida = culatra + abomaso + mocoto + fundo + tripaFina + tripaGrossa;
+    const mediaTripaCozida = totalTripaCozida/totalAbate;
+    
+    const mediaSerosaFormatada = parseFloat(mediaSerosa).toFixed(2);
+    const mediaTripaCozidaFormatada = parseFloat(mediaTripaCozida).toFixed(2);
+    const totalTripaCozidaFormatada = parseFloat(totalTripaCozida).toFixed(2);
+    const totalSerosaFormatada = parseFloat(totalSerosa).toFixed(2);
 
     const cadastrarResumo = () => {
       axios.post("http://localhost:3001/api/abate", {
@@ -36,6 +45,7 @@ function Encarregado () {
         total:abate - condenados,
         data: new Date().toLocaleDateString("pt-BR"),
         data_dia:dataDiaria,
+        
       })
       .then(response => {
         setMensagem(response.data.message);
@@ -49,7 +59,9 @@ function Encarregado () {
         terceiro_corte:terceiro * 320,
         quarto_corte:quarto * 170,
         data: new Date().toLocaleDateString("pt-BR"),
-        data_dia:dataDiaria
+        data_dia:dataDiaria,
+        KM:totalSerosaFormatada,
+        media:mediaSerosaFormatada,
       })
       .then(response => {
         setMensagem(response.data.message);
@@ -66,6 +78,8 @@ function Encarregado () {
         tripa_fina:tripaFina,
         data: new Date().toLocaleDateString("pt-BR"),
         data_dia:dataDiaria,
+        media:mediaTripaCozidaFormatada,
+        total:totalTripaCozidaFormatada
       })
       .then(response => {
         setMensagem(response.data.message);
@@ -150,10 +164,14 @@ function Encarregado () {
         <div class="card-footer">
           <div class="row">
             <div class="col-md-1 col-sm-12">
-                <input  type="button" class="btn btn-success" value="enviar" id="enviar" onClick={cadastrarResumo} />
+                <input  type="button" class="btn btn-success" value="Enviar" id="enviar" onClick={cadastrarResumo} />
                 
             </div>
-            {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
+            
+          </div>
+          
+        </div>
+        {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
             <p>{mensagem}</p>
             </div>):null}
             {(mensagem === "Campos vazios!" ?(<div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -163,8 +181,6 @@ function Encarregado () {
   </div>
 </div>):null)}
            
-          </div>
-        </div>
       </div>
     </form>  
   </div>
