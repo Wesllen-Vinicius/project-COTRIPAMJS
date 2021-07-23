@@ -20,7 +20,7 @@ app.listen(3001, () => {
   const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "Wesllen09089909@",
+    password: "12345678",
     database: "cotripamjs",
   });
   
@@ -76,28 +76,28 @@ app.listen(3001, () => {
     const cpf = req.body.cpf;
     const unidade = req.body.unidade;
     const data_nascimento = req.body.data_nascimento;
-    const senha_encryp = await bcrypt.hash(senha, 10);
+    
     const sqlInsert =
-      "INSERT INTO encarregados (nome, senha_encryp, cpf, unidade, data_nascimento) VALUES (?,?,?,?,?)";
+      "INSERT INTO encarregados (nome, senha, cpf, unidade, data_nascimento) VALUES (?,?,?,?,?)";
     db.query(
       sqlInsert,
-     [
+      [
         nome,
-        senha_encryp,
+        senha,
         cpf,
         unidade,
-       data_nascimento
+        data_nascimento
       ],
       (err) => {
         console.log(err)
         if (err) {
           res.json({ message: "Campos vazios!" });
         } else {
-        res.json({ message: "Cadastro realizado com sucesso!" });
+          res.json({ message: "Cadastro realizado com sucesso!" });
         }    
-     }  
-   );
- }); 
+      }  
+    );
+  });
 
 
   //app.post("/api/casTeste", async (req, res) => {
@@ -161,16 +161,20 @@ app.listen(3001, () => {
     );
   });
 
+ 
+
   app.post("/api/serosa", async (req, res) => {
     const primeiro_corte = req.body.primeiro_corte;
     const segundo_corte = req.body.segundo_corte;
     const terceiro_corte = req.body.terceiro_corte;
     const quarto_corte = req.body.quarto_corte;
+    const KM = req.body.KM;
+    const media = req.body.media;
     const data_dia = req.body.data_dia;
     const data = req.body.data;
 
     const sqlInsert =
-      "INSERT INTO serosa (primeiro_corte, segundo_corte, terceiro_corte, quarto_corte, data_dia, data) VALUES (?,?,?,?,?,?)";
+      "INSERT INTO serosa (primeiro_corte, segundo_corte, terceiro_corte, quarto_corte, KM, media, data_dia, data) VALUES (?,?,?,?,?,?,?,?)";
     db.query(
       sqlInsert,
       [
@@ -178,6 +182,8 @@ app.listen(3001, () => {
         segundo_corte,
         terceiro_corte,
         quarto_corte,
+        KM,
+        media,
         data_dia,
         data
       ],
@@ -232,9 +238,11 @@ app.listen(3001, () => {
     const tripa_fina = req.body.tripa_fina;
     const data_dia = req.body.data_dia;
     const data = req.body.data;
+    const media = req.body.media;
+    const total = req.body.total;
 
     const sqlInsert =
-      "INSERT INTO tripaCozida ( mocoto, culatra, abomaso, fundo, tripa_grossa, tripa_fina, data_dia, data) VALUES (?,?,?,?,?,?,?,?)";
+      "INSERT INTO tripaCozida ( mocoto, culatra, abomaso, fundo, tripa_grossa, tripa_fina, total, media ,data_dia, data) VALUES (?,?,?,?,?,?,?,?,?,?)";
     db.query(
       sqlInsert,
       [
@@ -244,8 +252,11 @@ app.listen(3001, () => {
         fundo,
         tripa_grossa,
         tripa_fina,
+        total,
+        media,
         data_dia,
         data
+       
       ],
       (err) => {
         console.log(err)
@@ -293,7 +304,46 @@ app.listen(3001, () => {
       
     );
   });
+
+
+  app.post("/api/tripaExportacao", async (req, res) => {
+    const tripa_reta = req.body.tripa_reta;
+    const tripa_torta1c = req.body.tripa_torta1c;
+    const tripa_torta2c = req.body.tripa_torta2c;
+    const culatra = req.body.culatra;
+    const fundo = req.body.fundo;
+    const data_dia = req.body.data_dia;
+    const data = req.body.data;
+
+    const sqlInsert =
+      "INSERT INTO tripa_exportacao (tripa_reta, tripa_torta1c, tripa_torta2c, culatra, fundo, data_dia, data) VALUES (?,?,?,?,?,?,?)";
+    db.query(
+      sqlInsert,
+      [
+        tripa_reta,
+        tripa_torta1c,
+        tripa_torta2c,
+        culatra,
+        fundo,
+        data_dia,
+        data
+      ],
+      (err) => {
+        console.log(err)
+        if (err) {
+          res.json({ message: "Campos vazios!" });
+        } else {
+          res.json({ message: "Cadastro realizado com sucesso!" });
+        }    
+      }  
+    );
+  });
   
+
+
+
+
+  //RESUMOS
   app.get("/api/resumo/abate", async (req, res) => {
     db.query("SELECT * FROM abate", (err, result) => {
       res.send(result)

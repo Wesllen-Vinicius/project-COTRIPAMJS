@@ -74,9 +74,12 @@ function Produtos  (){
         <div class="card-footer">
           <div class="row">
             <div class="col-md-1 col-sm-12">
-                <input onClick={cadastrar} type="button" class="btn btn-success" value="enviar" id="enviarProdutos" />
+                <input onClick={cadastrar} type="button" class="btn btn-success" value="Enviar" id="enviarProdutos" />
             </div>
-            {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
+           
+          </div>
+        </div>
+        {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
             <p>{mensagem}</p>
             </div>):null}
             {(mensagem === "Campos vazios!" ?(<div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -85,8 +88,6 @@ function Produtos  (){
   <p>{mensagem}</p>
   </div>
 </div>):null)}
-          </div>
-        </div>
       </div>
     </form> 
     <Footer/> 

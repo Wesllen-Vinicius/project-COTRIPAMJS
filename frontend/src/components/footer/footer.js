@@ -4,7 +4,7 @@ import './footer.css'
 function Footer()  {
     return ( 
     <div>
-	    <div id="footer">
+	    <div id="footer" class="fixed-bottom">
 		    <div class="container">
 			<div class="row text-center text-xs-center text-sm-left text-md-left">
 			<div class="row">

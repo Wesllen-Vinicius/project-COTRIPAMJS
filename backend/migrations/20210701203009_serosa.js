@@ -6,6 +6,8 @@ exports.up = function(knex) {
         table.double("segundo_corte").notNull();
         table.double("terceiro_corte").notNull();
         table.double("quarto_corte").notNull(); 
+        table.double("KM").notNull();
+        table.double("media").notNull();  
         table.date("data_dia").notNull();
         table.string("data").notNull();    
       });

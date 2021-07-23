@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
 import "./header.css";
+import {ImMenu} from 'react-icons/im'
 
 function Header()  {
   const dispatch = useDispatch ();
@@ -11,7 +12,7 @@ function Header()  {
     <div class="container-fluid">
     <Link class="navbar-brand" href="/Encarregado">COTRIPAM INDCOM</Link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span><ImMenu size={30}/></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
@@ -34,7 +35,7 @@ function Header()  {
         <Link class="nav-link" to="/TripaDeExportacao">Tripa De Exportação</Link>
       </li>
       <li class="nav-item">
-        <Link class="nav-link" to="/TripaDeExportacao">Estoque</Link>
+        <Link class="nav-link" to="/Estoque">Estoque</Link>
       </li>
       
         

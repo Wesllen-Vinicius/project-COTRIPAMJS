@@ -8,6 +8,8 @@ exports.up = function(knex) {
         table.double("fundo").notNull();
         table.double("tripa_grossa").notNull();
         table.double("tripa_fina").notNull();
+        table.double("total").notNull();
+        table.double("media").notNull();
         table.date("data_dia").notNull();
         table.string("data").notNull();
       });

@@ -67,9 +67,13 @@ function Faltas (){
         <div class="card-footer">
           <div class="row">
             <div class="col-md-1 col-sm-12">
-                <input  type="button" class="btn btn-success" value="enviar" id="enviarFaltas" onClick={cadastrarFaltas}/>
+                <input  type="button" class="btn btn-success" value="Enviar" id="enviarFaltas" onClick={cadastrarFaltas}/>
             </div>
-            {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
+           
+           
+          </div>
+        </div>
+        {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
             <p>{mensagem}</p>
             </div>):null}
             {(mensagem === "Campos vazios!" ?(<div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -78,9 +82,6 @@ function Faltas (){
   <p>{mensagem}</p>
   </div>
 </div>):null)}
-           
-          </div>
-        </div>
       </div>
     </form> 
     <Footer/> 

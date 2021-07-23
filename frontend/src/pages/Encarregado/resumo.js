@@ -18,12 +18,15 @@ function Resumos(){
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+    <ul class="navbar-nav">
         <li class="nav-item">
           <Link class="nav-link " to="/Resumo/Abate">Abate</Link>
         </li>
         <li class="nav-item">
         <Link class="nav-link " to="/Resumo/Serosa">Serosa</Link>
+        </li>
+        <li class="nav-item">
+        <Link class="nav-link " to="/Resumo/Faltas">Faltas</Link>
         </li>
         <li class="nav-item">
         <Link class="nav-link " to="/Resumo/TripaCozida">Tripa Cozida</Link>

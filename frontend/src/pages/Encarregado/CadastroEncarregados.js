@@ -19,6 +19,9 @@ function CadastroEncarregado(){
 
 
     const cadastrarEncarregados = () => {
+      if(nome === "" || senha === "" || CPF ==="" || dataNas ==="" || unidade === ""){
+        setMensagem("Campos vazios!")
+      } else{
         axios.post("http://localhost:3001/api/casEncarregados", {
           nome:nome,
           cpf:CPF,
@@ -32,6 +35,9 @@ function CadastroEncarregado(){
         .catch(err => {
           setMensagem(err.data.message);
         });
+
+      }
+        
     }
 
     return(
@@ -47,7 +53,7 @@ function CadastroEncarregado(){
                 <input  onChange={(e) => setNome(e.target.value)} type="text" class="form-control"  placeholder="Nome"/>
              </div>
              <div class="col-md-2 col-sm-12">
-             <label for="inputPassword" class="col-sm-2 col-form-label">Senha</label>
+             <label for="inputPassword" class="form-label">Senha</label>
                <input type="password" class="form-control" id="inputPassword" onChange={(e) => setSenha(e.target.value)}></input>
           
              </div>
@@ -64,13 +70,16 @@ function CadastroEncarregado(){
                <input onChange={(e) => setUnidade(e.target.value)} type="text" class="form-control"  placeholder="Unidade"/>
              </div> 
              </div>
+             </div>
              <div class="card-footer">
               <div class="row">
              <div class="col-md-1 col-sm-12">
-                <input  type="button" class="btn btn-success" value="enviar" id="enviar" onClick={cadastrarEncarregados} />
+                <input  type="button" class="btn btn-success" value="Enviar" id="enviar" onClick={cadastrarEncarregados} />
             </div>
             </div>
            
+            
+            </div>
             {mensagem === "Cadastro realizado com sucesso!" ? ( <div class="alert alert-success" role="alert">
             <p>{mensagem}</p>
             </div>):null}
@@ -80,8 +89,6 @@ function CadastroEncarregado(){
             <p>{mensagem}</p>
             </div>
             </div>):null)}
-            </div>
-            </div>
              <Footer/>
           </div>
              

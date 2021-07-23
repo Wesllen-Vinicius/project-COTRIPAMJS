@@ -3,13 +3,13 @@ import {Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import axios from 'axios'
 
-import Header from '../../components/header/index'
-import Footer from '../../components/footer/footer';
+import Header from '../../../components/header/index'
+import Footer from '../../../components/footer/footer';
 
-function Abate(){
+function ResumoFaltas(){
 const [resumo ,  setResumo] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:3001/api/resumo/abate").then(response => {
+        axios.get("http://localhost:3001/api/resumo/faltas").then(response => {
           setResumo(response.data);
         });
       }, []);
@@ -32,6 +32,9 @@ const [resumo ,  setResumo] = useState([]);
         <Link class="nav-link " to="/Resumo/Serosa">Serosa</Link>
         </li>
         <li class="nav-item">
+        <Link class="nav-link " to="/Resumo/Faltas">Faltas</Link>
+        </li>
+        <li class="nav-item">
         <Link class="nav-link " to="/Resumo/TripaCozida">Tripa Cozida</Link>
         </li>
         <li class="nav-item">
@@ -45,14 +48,12 @@ const [resumo ,  setResumo] = useState([]);
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Abate</th>
-      <th scope="col">Bois abatidos</th>
-      <th scope="col">Vacas</th>
-      <th scope="col">Condenados</th>
-      <th scope="col">Total</th>
+      <th scope="col">Ativos</th>
+      <th scope="col">Trabalhou</th>
+      <th scope="col">Nome Completo</th>
       <th scope="col">Data dia</th>
       <th scope="col">Data Cadastro</th>
+      <th scope="col">Observação</th>
       
     </tr>
   </thead>
@@ -61,14 +62,13 @@ const [resumo ,  setResumo] = useState([]);
           return(
             <tbody>
     <tr>
-      <th scope="row">{val.id}</th>
-      <td>{val.abate}</td>
-      <td>{val.bois_abate}</td>
-      <td>{val.vacas_abate}</td>
-      <td>{val.condenados}</td>
-      <td>{val.total}</td>
+     
+      <td>{val.ativos}</td>
+      <td>{val.trabalhou}</td>
+      <td>{val.nome_completo}</td>
       <td>{val.data_dia}</td>
       <td>{val.data}</td>
+      <td>{val.observacao}</td>
      
 
 
@@ -84,4 +84,4 @@ const [resumo ,  setResumo] = useState([]);
 </div>
     );
 }
-export default Abate;
+export default ResumoFaltas;
