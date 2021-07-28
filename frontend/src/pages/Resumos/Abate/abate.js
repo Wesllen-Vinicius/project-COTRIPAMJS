@@ -8,11 +8,26 @@ import Footer from '../../../components/footer/footer';
 
 function Abate(){
 const [resumo ,  setResumo] = useState([]);
+const [ mensagem, setMensagem] = useState("");
+const [ pesquisa ,  setPesquisa] = useState("");
     useEffect(() => {
         axios.get("http://localhost:3001/api/resumo/abate").then(response => {
           setResumo(response.data);
         });
       }, []);
+      
+      const Pesquisa = () => {
+        axios.post("http://localhost:3001/api/abate", {
+          data_dia:pesquisa,
+          
+        })
+        .then(response => {
+          setMensagem(response.data.message);
+        })
+        .catch(err => {
+          setMensagem(err.data.message);
+        });
+      }
     return(
 <div>
 <Header/>
@@ -32,9 +47,6 @@ const [resumo ,  setResumo] = useState([]);
         <Link class="nav-link " to="/Resumo/Serosa">Serosa</Link>
         </li>
         <li class="nav-item">
-        <Link class="nav-link " to="/Resumo/Faltas">Faltas</Link>
-        </li>
-        <li class="nav-item">
         <Link class="nav-link " to="/Resumo/TripaCozida">Tripa Cozida</Link>
         </li>
         <li class="nav-item">
@@ -44,6 +56,13 @@ const [resumo ,  setResumo] = useState([]);
     </div>
   </div>
 </nav>
+<div class="col-md-2 col-sm-12 mx-auto">
+  <div class="row">
+                <label for="ativos" class="form-label">Pesquisa</label>
+                <input onChange={(e) => setPesquisa(e.target.value)} valuetype="text" class="form-control" />
+             </div>
+             </div>
+             {mensagem}
 <div class="tabela mt-3 table-responsive ">
 <table class="table table-hover">
   <thead class="thead-dark">

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import axios from "axios";
-import {FaExclamationTriangle} from 'react-icons/fa'
+import {FaCanadianMapleLeaf, FaExclamationTriangle} from 'react-icons/fa'
 import Header from "../../components/header";
 import Footer from "../../components/footer/footer";
 import './encarregado.css'
@@ -14,9 +14,15 @@ function CadastroEncarregado(){
     const [senha, setSenha] = useState("");
     const [CPF , setCPF] = useState("");
     const [dataNas, setDataNas] = useState("");
-    const [unidade, setUnidade] = useState("");
+    const [unidade, setUnidade] = useState([]);
     const[mensagem , setMensagem] = useState("")
+    const [unidades, setUnidades] = useState([]);
 
+    useEffect(() => {
+      axios.get("http://localhost:3001/api/unidades").then(response => {
+        setUnidades(response.data);
+      });
+    }, []);
 
     const cadastrarEncarregados = () => {
       if(nome === "" || senha === "" || CPF ==="" || dataNas ==="" || unidade === ""){
@@ -30,6 +36,8 @@ function CadastroEncarregado(){
           data_nascimento:dataNas
         })
         .then(response => {
+          console.log(unidade)
+          console.log(unidades)
           setMensagem(response.data.message);
         })
         .catch(err => {
@@ -65,10 +73,15 @@ function CadastroEncarregado(){
                <label for="data_nascimento" class="form-label">Data De Nascimento</label>
                <input onChange={(e) => setDataNas(e.target.value)} type="date" class="form-control" placeholder="Data de Nacimento"/>
              </div>
-             <div class="col-md-2 col-sm-12">
-               <label for="unidade" class="form-label">Unidade</label>
-               <input onChange={(e) => setUnidade(e.target.value)} type="text" class="form-control"  placeholder="Unidade"/>
-             </div> 
+             <div class="col-md-3 col-sm-12">
+             <select value={unidade} class="form-select" onChange={(e) => setUnidade(e.target.value)}>
+             {unidades.map((val, index) => {
+          return(
+                    <option value={val.id} key={index}>{val.nome_unidade}</option>
+          ); 
+})}
+                  </select>
+             </div>
              </div>
              </div>
              <div class="card-footer">

@@ -57,10 +57,10 @@ function Encarregado () {
         setMensagem(err.data.message);
       });
       axios.post("http://localhost:3001/api/serosa", {
-        primeiro_corte:primeiro * 630 ,
-        segundo_corte:segundo * 470,
-        terceiro_corte:terceiro * 320,
-        quarto_corte:quarto * 170,
+        primeiro_corte: parseFloat(primeiro) * 630 ,
+        segundo_corte: parseFloat(segundo) * 470,
+        terceiro_corte: parseFloat(terceiro) * 320,
+        quarto_corte: parseFloat(quarto) * 170,
         data: new Date().toLocaleDateString("pt-BR"),
         data_dia:dataDiaria,
         KM:totalSerosaFormatada,

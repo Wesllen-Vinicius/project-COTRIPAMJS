@@ -26,6 +26,9 @@ function Header()  {
           <Link class="nav-link" to="/CadastroEncarregado">Cadastro De Encarregados</Link>
         </li>
         <li class="nav-item">
+          <Link class="nav-link" to="/CadastroUnidade">Cadastro De Unidade</Link>
+        </li>
+        <li class="nav-item">
         <Link class="nav-link"  to="/Encarregado">Resumo diario</Link>
       </li>
       <li class="nav-item">
@@ -39,9 +42,7 @@ function Header()  {
       </li>
       
         
-        <li class="nav-item">
-          <Link class="nav-link" to="/Faltas">Faltas</Link>
-        </li>
+      
           
          
         </>):(
@@ -56,13 +57,10 @@ function Header()  {
         <Link class="nav-link" to="/TripaDeExportacao">Tripa De Exportação</Link>
       </li>
       <li class="nav-item">
-        <Link class="nav-link" to="/TripaDeExportacao">Estoque</Link>
+        <Link class="nav-link" to="/Estoque">Estoque</Link>
       </li>
       
-        
-        <li class="nav-item">
-          <Link class="nav-link" to="/Faltas">Faltas</Link>
-        </li>
+  
           </>
         
         )}

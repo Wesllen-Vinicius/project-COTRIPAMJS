@@ -7,8 +7,11 @@ exports.up = function(knex) {
         table.double("tripa_torta2c").notNull();
         table.double("culatra").notNull(); 
         table.double("fundo").notNull();
+        table.integer("unidade_exportacao").notNull();
+        table.string("encarregado").notNull();
         table.date("data_dia").notNull();
-        table.string("data").notNull();    
+        table.string("data").notNull();   
+
       });
 };
 

@@ -55,7 +55,7 @@ app.listen(3001, () => {
       if (err) {
       }
       if (results.length > 0) {
-        if (senha === results[0].senha_encryp) {
+        if (senha === results[0].senha) {
           res.json({ loggedIn: true, message: "Logado!" });
         } else {
           res.json({
@@ -339,7 +339,30 @@ app.listen(3001, () => {
     );
   });
   
+  app.post("/api/casUnidade", async (req, res) => {
+    const nome_unidade = req.body.nome_unidade;
+    const meta_serosa = req.body.meta_serosa;
+    const meta_tripaCozida = req.body.meta_tripaCozida;
 
+    const sqlInsert =
+      "INSERT INTO unidades ( meta_serosa, meta_tripaCozida, nome_unidade) VALUES (?,?,?)";
+    db.query(
+      sqlInsert,
+      [
+        meta_serosa,
+        meta_tripaCozida,
+        nome_unidade
+      ],
+      (err) => {
+        console.log(err)
+        if (err) {
+          res.json({ message: "Campos vazios!" });
+        } else {
+          res.json({ message: "Cadastro realizado com sucesso!" });
+        }    
+      }  
+    );
+  });
 
 
 
@@ -371,5 +394,29 @@ app.listen(3001, () => {
   app.get("/api/resumo/produtos", async (req, res) => {
     db.query("SELECT * FROM produtos", (err, result) => {
       res.send(result)
+    });
+  });
+
+  app.get("/api/unidades", async (req, res) => {
+    db.query("SELECT * FROM unidades", (err, result) => {
+      res.send(result)
+    });
+  });
+
+
+  //CONSULTAS
+  app.post("/api/abate", async (req, res) => {
+    const unidade = req.params.unidade;
+    const data_dia = req.params.data_dia;
+
+    const sqlSelect = "SELECT * FROM abate WHERE unidade = ? OR data_dia = ?";
+    db.query(sqlSelect, unidade, data_dia, (err, result) => {
+      if(err){
+        res.json("Algo está errado!");
+        res.status(400);
+      } else {
+        res.send(result);
+        res.status(200);   
+      } 
     });
   });
