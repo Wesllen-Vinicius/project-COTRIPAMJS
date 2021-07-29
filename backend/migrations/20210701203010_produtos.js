@@ -7,6 +7,8 @@ exports.up = function(knex) {
         table.double("metab").notNull();
         table.double("perox").notNull();
         table.double("bb");
+        table.integer("unidade_produtos").notNull();
+        table.string("encarregado").notNull(); 
         table.date("data_dia").notNull();
         table.string("data").notNull();
       });

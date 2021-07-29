@@ -5,56 +5,33 @@ import axios from "axios";
 import { FaExclamationTriangle } from "react-icons/fa";
 import Header from "../../components/header";
 import Footer from "../../components/footer/footer";
-import InputMask from "react-input-mask";
-import "./encarregado.css";
 
-function CadastroEncarregado() {
+function CadastroUnidade() {
   const [nome, setNome] = useState("");
-  const [senha, setSenha] = useState("");
-  const [CPF, setCPF] = useState("");
-  const [dataNas, setDataNas] = useState("");
-  const [unidade, setUnidade] = useState("");
+  const [Meta_serosa, setMeta_serosa] = useState("");
+  const [Meta_Tripacozida, setMeta_TripaCozida] = useState("");
   const [mensagem, setMensagem] = useState("");
-  const [unidades, setUnidades] = useState([]);
   const [resumo, setResumo] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3001/api/unidades").then((response) => {
-      setUnidades(response.data);
-    });
-  }, []);
-
-  useEffect(() => {
-    axios.get("http://localhost:3001/api/encarregados").then((response) => {
       setResumo(response.data);
     });
   }, []);
 
-  const cadastrarEncarregados = () => {
-    if (
-      nome === "" ||
-      senha === "" ||
-      CPF === "" ||
-      dataNas === "" ||
-      unidade === ""
-    ) {
-      setMensagem("Campos vazios!");
-    } else {
-      axios
-        .post("http://localhost:3001/api/casEncarregados", {
-          nome: nome,
-          cpf: CPF,
-          senha: senha,
-          unidade_enc: unidade,
-          data_nascimento: dataNas,
-        })
-        .then((response) => {
-          setMensagem(response.data.message);
-        })
-        .catch((err) => {
-          setMensagem(err.data.message);
-        });
-    }
+  const cadastrarUnidade = () => {
+    axios
+      .post("http://localhost:3001/api/casUnidade", {
+        nome_unidade: nome,
+        meta_serosa: Meta_serosa,
+        meta_tripaCozida: Meta_Tripacozida,
+      })
+      .then((response) => {
+        setMensagem(response.data.message);
+      })
+      .catch((err) => {
+        setMensagem(err.data.message);
+      });
   };
 
   return (
@@ -69,7 +46,7 @@ function CadastroEncarregado() {
       ) > 0 ? (
         <Redirect to="/Encarregado" />
       ) : null}
-      <h5 class="card-header">Cadastro de Encarregado</h5>
+      <h5 class="card-header">Cadastro de Unidade</h5>
       <div class="card-body">
         <div class="row">
           <div class="col-md-2 col-sm-12">
@@ -83,61 +60,28 @@ function CadastroEncarregado() {
               placeholder="Nome"
             />
           </div>
-          <div class="col-md-2 col-sm-12">
-            <label for="inputPassword" class="form-label">
-              Senha
-            </label>
-            <input
-              type="password"
-              class="form-control"
-              id="inputPassword"
-              placeholder="****"
-              onChange={(e) => setSenha(e.target.value)}
-            ></input>
-          </div>
+
           <div class="col-md-2 col-sm-12">
             <label for="cpf" class="form-label">
-              CPF
+              Meta Serosa
             </label>
-            <InputMask
-              mask="999.999.999-99"
-              onChange={(e) => setCPF(e.target.value)}
+            <input
+              onChange={(e) => setMeta_serosa(e.target.value)}
               type="text"
               class="form-control"
-              placeholder="CPF"
+              placeholder="90,00"
             />
           </div>
           <div class="col-md-2 col-sm-12">
             <label for="data_nascimento" class="form-label">
-              Data De Nascimento
+              Meta Tripa cozida
             </label>
             <input
-              onChange={(e) => setDataNas(e.target.value)}
-              type="date"
+              onChange={(e) => setMeta_TripaCozida(e.target.value)}
+              type="number"
               class="form-control"
-              placeholder="Data de Nacimento"
+              placeholder="4,00"
             />
-          </div>
-          <div class="col-md-3 col-sm-12">
-            <label for="nome" class="form-label">
-              Unidade
-            </label>
-            <select
-              value={unidade}
-              class="form-select"
-              onChange={(e) => setUnidade(e.target.value)}
-            >
-              <option selected value="">
-                Selecione
-              </option>
-              {unidades.map((val, index) => {
-                return (
-                  <option value={val.id} key={index}>
-                    {val.nome_unidade}
-                  </option>
-                );
-              })}
-            </select>
           </div>
         </div>
       </div>
@@ -149,7 +93,7 @@ function CadastroEncarregado() {
               class="btn btn-success"
               value="Enviar"
               id="enviar"
-              onClick={cadastrarEncarregados}
+              onClick={cadastrarUnidade}
             />
           </div>
         </div>
@@ -182,9 +126,8 @@ function CadastroEncarregado() {
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
-                <th scope="col">CPF</th>
-                <th scope="col">Unidade</th>
-                <th scope="col">Data de Nascimento</th>
+                <th scope="col">Meta Serosa</th>
+                <th scope="col">Meta Tripa Cozida</th>
               </tr>
             </thead>
 
@@ -193,10 +136,9 @@ function CadastroEncarregado() {
                 <tbody>
                   <tr>
                     <th scope="row">{val.id}</th>
-                    <td>{val.nome}</td>
-                    <td>{val.cpf}</td>
-                    <td>{val.unidade_enc}</td>
-                    <td>{val.data_nascimento}</td>
+                    <td>{val.nome_unidade}</td>
+                    <td>{val.meta_serosa}</td>
+                    <td>{val.meta_tripaCozida}</td>
                   </tr>
                 </tbody>
               );
@@ -208,4 +150,4 @@ function CadastroEncarregado() {
     </div>
   );
 }
-export default CadastroEncarregado;
+export default CadastroUnidade;

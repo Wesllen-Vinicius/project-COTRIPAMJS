@@ -7,9 +7,12 @@ exports.up = function(knex) {
         table.double("terceiro_corte").notNull();
         table.double("quarto_corte").notNull(); 
         table.double("KM").notNull();
-        table.double("media").notNull();  
+        table.double("media").notNull();
+        table.integer("unidade_serosa").notNull();
+        table.string("encarregado").notNull();  
         table.date("data_dia").notNull();
-        table.string("data").notNull();    
+        table.string("data").notNull();
+
       });
 };
 

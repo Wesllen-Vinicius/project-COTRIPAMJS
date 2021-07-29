@@ -4,9 +4,11 @@ exports.up = function(knex) {
         table.increments("id").primary();
         table.double("abate").notNull();
         table.double("bois_abate").notNull();
-        table.double("vacas_abate");
-        table.double("total");
+        table.double("vacas_abate").notNull();
+        table.double("total").notNull();
         table.double("condenados").notNull();
+        table.integer("unidade_abate").notNull();
+        table.string("encarregado").notNull();
         table.date("data_dia").notNull();
         table.string("data").notNull();
       });

@@ -25,9 +25,7 @@ function Resumos(){
         <li class="nav-item">
         <Link class="nav-link " to="/Resumo/Serosa">Serosa</Link>
         </li>
-        <li class="nav-item">
-        <Link class="nav-link " to="/Resumo/Faltas">Faltas</Link>
-        </li>
+       
         <li class="nav-item">
         <Link class="nav-link " to="/Resumo/TripaCozida">Tripa Cozida</Link>
         </li>
