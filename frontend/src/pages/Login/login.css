@@ -18,9 +18,16 @@
     
   }
   .form-login{
-    height: 450px;
-    
+    height: 450px;    
   }
+
+  .select_login{
+    width: 320px;
+    margin-left: 29px;
+    margin-top: 5px;
+  }
+
+
   .img{
     border-radius: 10px 0 0 10px;
     width: 100%;
@@ -45,7 +52,7 @@
   #formFooter {
     
     border-top: 1px solid #dce8f1;
-    padding: 70px;
+    padding: 30px;
     text-align: center;
     -webkit-border-radius: 0 0 10px 10px;
     border-radius: 0 0 10px 10px;
