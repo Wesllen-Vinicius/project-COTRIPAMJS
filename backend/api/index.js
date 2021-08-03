@@ -339,7 +339,7 @@ app.get("/api/resumo/abate", async (req, res) => {
 });
 
 app.get("/api/resumo/serosa", async (req, res) => {
-  db.query("SELECT * FROM serosa", (err, result) => {
+  db.query("SELECT * FROM serosa ORDER BY media desc", (err, result) => {
     res.send(result);
   });
 });
@@ -351,7 +351,7 @@ app.get("/api/resumo/faltas", async (req, res) => {
 });
 
 app.get("/api/resumo/tripaCozida", async (req, res) => {
-  db.query("SELECT * FROM tripaCozida", (err, result) => {
+  db.query("SELECT * FROM tripaCozida ORDER BY media desc", (err, result) => {
     res.send(result);
   });
 });
@@ -374,19 +374,149 @@ app.get("/api/encarregados", async (req, res) => {
   });
 });
 
-//CONSULTAS
-app.post("/api/abate", async (req, res) => {
-  const unidade = req.params.unidade;
-  const data_dia = req.params.data_dia;
+app.get("/api/resumo/tripaExportacao", async (req, res) => {
+  db.query("SELECT * FROM tripa_exportacao", (err, result) => {
+    res.send(result);
+  });
+});
 
-  const sqlSelect = "SELECT * FROM abate WHERE unidade = ? OR data_dia = ?";
-  db.query(sqlSelect, unidade, data_dia, (err, result) => {
-    if (err) {
-      res.json("Algo está errado!");
-      res.status(400);
-    } else {
-      res.send(result);
+//CONSULTAS ABATE
+app.post("/api/abate/pesquisa", async (req, res) => {
+  const encarregado = req.body.encarregado;
+  const abate = req.body.abate;
+  const unidade_abate = req.body.unidade_abate;
+  const sqlSelect =
+    "SELECT * FROM abate WHERE encarregado = ? OR abate = ? OR unidade_abate =? ";
+  db.query(sqlSelect, [encarregado, abate, unidade_abate], (err, result) => {
+    if (result) {
       res.status(200);
+      res.send(result);
     }
+  });
+});
+
+app.post("/api/abate/pesquisa/data", async (req, res) => {
+  const data = req.body.data;
+  const data2 = req.body.data2;
+  const sqlSelect = "SELECT  * FROM  abate WHERE data_dia BETWEEN ? AND ?";
+  db.query(sqlSelect, [data, data2], (err, result) => {
+    res.send(result);
+  });
+});
+
+//CONSULTAS SEROSA
+app.post("/api/serosa/pesquisa", async (req, res) => {
+  const encarregado = req.body.encarregado;
+  const media = req.body.media;
+  const unidade_serosa = req.body.unidade_serosa;
+  const sqlSelect =
+    "SELECT * FROM serosa WHERE encarregado = ? OR media = ? OR unidade_serosa =? ";
+  db.query(sqlSelect, [encarregado, media, unidade_serosa], (err, result) => {
+    if (result) {
+      res.status(200);
+      res.send(result);
+    }
+  });
+});
+
+app.post("/api/serosa/pesquisa/data", async (req, res) => {
+  const data = req.body.data;
+  const data2 = req.body.data2;
+  const sqlSelect = "SELECT  * FROM  serosa WHERE data_dia BETWEEN ? AND ?";
+  db.query(sqlSelect, [data, data2], (err, result) => {
+    res.send(result);
+  });
+});
+
+//CONSULTAS TRIPACOZIDA
+app.post("/api/tripaCozida/pesquisa", async (req, res) => {
+  const encarregado = req.body.encarregado;
+  const media = req.body.media;
+  const unidade_tripaCozida = req.body.unidade_tripaCozida;
+  const sqlSelect =
+    "SELECT * FROM tripaCozida WHERE encarregado = ? OR media = ? OR unidade_tripaCozida =? ";
+  db.query(
+    sqlSelect,
+    [encarregado, media, unidade_tripaCozida],
+    (err, result) => {
+      if (result) {
+        res.status(200);
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.post("/api/tripaCozida/pesquisa/data", async (req, res) => {
+  const data = req.body.data;
+  const data2 = req.body.data2;
+  const sqlSelect =
+    "SELECT  * FROM  tripaCozida WHERE data_dia BETWEEN ? AND ?";
+  db.query(sqlSelect, [data, data2], (err, result) => {
+    res.send(result);
+  });
+});
+
+//CONSULTAS PRODUTOS
+app.post("/api/produtos/pesquisa", async (req, res) => {
+  const encarregado = req.body.encarregado;
+  const unidade_produtos = req.body.unidade_produtos;
+  const sqlSelect =
+    "SELECT * FROM produtos WHERE encarregado = ? OR unidade_produtos =? ";
+  db.query(sqlSelect, [encarregado, unidade_produtos], (err, result) => {
+    if (result) {
+      res.status(200);
+      res.send(result);
+    }
+  });
+});
+
+app.post("/api/produtos/pesquisa/data", async (req, res) => {
+  const data = req.body.data;
+  const data2 = req.body.data2;
+  const sqlSelect = "SELECT  * FROM  produtos WHERE data_dia BETWEEN ? AND ?";
+  db.query(sqlSelect, [data, data2], (err, result) => {
+    res.send(result);
+  });
+});
+
+//CONSULTA TRIPA DE EXPORTAÇÃO
+app.post("/api/tripaExportacao/pesquisa", async (req, res) => {
+  const encarregado = req.body.encarregado;
+  const unidade_exportacao = req.body.unidade_exportacao;
+  const sqlSelect =
+    "SELECT * FROM tripa_exportacao WHERE encarregado = ?  OR unidade_exportacao =? ";
+  db.query(sqlSelect, [encarregado, unidade_exportacao], (err, result) => {
+    if (result) {
+      res.status(200);
+      res.send(result);
+    }
+  });
+});
+
+app.post("/api/tripaExportacao/pesquisa/data", async (req, res) => {
+  const data = req.body.data;
+  const data2 = req.body.data2;
+  const sqlSelect =
+    "SELECT  * FROM  tripa_exportacao WHERE data_dia BETWEEN ? AND ?";
+  db.query(sqlSelect, [data, data2], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.get("/api/total/serosa", async (req, res) => {
+  db.query("SELECT SUM(KM) AS total FROM serosa", (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post("/api/tripaExportacao/update/unidades", async (req, res) => {
+  const data = req.body.data;
+  const data2 = req.body.data2;
+  const sqlSelect =
+    "UPDATE unidades SET total_serosa = ?, total_tripaCozida = ?, total_tripaExpotacao = ? WHERE id = ?";
+
+  db.query(sqlSelect, [data, data2], (err, result) => {
+    res.send(result);
   });
 });
