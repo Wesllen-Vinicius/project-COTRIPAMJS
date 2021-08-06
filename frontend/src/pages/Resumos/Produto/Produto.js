@@ -8,11 +8,53 @@ import Footer from "../../../components/footer/footer";
 
 function Produto() {
   const [resumo, setResumo] = useState([]);
+  const [mensagem, setMensagem] = useState("");
+  const [pesquisa, setPesquisa] = useState("");
+  const [data, setData] = useState("");
+  const [data2, setData2] = useState("");
+  const [tipoPesquisa, setTipoPesquisa] = useState("");
   useEffect(() => {
     axios.get("http://localhost:3001/api/resumo/produtos").then((response) => {
       setResumo(response.data);
     });
   }, []);
+
+  const Pesquisa = () => {
+    if (pesquisa === "") {
+      setMensagem("Campo vazio");
+    } else {
+      axios
+        .post("http://localhost:3001/api/produtos/pesquisa", {
+          encarregado: pesquisa,
+          unidade_produtos: pesquisa,
+        })
+        .then((response) => {
+          setMensagem(response.data.message);
+          setResumo(response.data);
+        })
+        .catch((err) => {
+          setMensagem(err.data.message);
+        });
+    }
+  };
+  const PesquisaData = () => {
+    if (data === "" && data2 === "") {
+      setMensagem("Campo vazio");
+    } else {
+      axios
+        .post("http://localhost:3001/api/produtos/pesquisa/data", {
+          data: data,
+          data2: data2,
+        })
+        .then((response) => {
+          setMensagem(response.data.message);
+          setResumo(response.data);
+        })
+        .catch((err) => {
+          setMensagem(err.data.message);
+        });
+    }
+  };
   return (
     <div>
       <Header />
@@ -64,10 +106,77 @@ function Produto() {
                   Produtos
                 </Link>
               </li>
+              <li class="nav-item">
+                <Link class="nav-link " to="/Resumo/TripaDeExportacao">
+                  Tripa de Expotação
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4">
+            <label for="ativos" class="form-label">
+              Tipo de pesquisa
+            </label>
+            <select
+              onChange={(e) => setTipoPesquisa(e.target.value)}
+              class="form-control"
+            >
+              <option selected value="">
+                Selecione
+              </option>
+              <option value="data">Pesquisa por Data</option>
+              <option value="outras">Outras pesquisas</option>
+            </select>
+          </div>
+          {tipoPesquisa === "outras" && (
+            <div class="col-4">
+              <label for="ativos" class="form-label">
+                Pesquisa
+              </label>
+              <input
+                onChange={(e) => setPesquisa(e.target.value)}
+                type="text"
+                class="form-control"
+              />
+
+              <button class="btn btn-primary mt-2" onClick={Pesquisa}>
+                Pesquisar
+              </button>
+            </div>
+          )}
+          {tipoPesquisa === "data" && (
+            <div class="col-4">
+              <label for="ativos" class="form-label">
+                Pesquisa Data
+              </label>
+              <input
+                onChange={(e) => setData(e.target.value)}
+                type="date"
+                class="form-control"
+              />
+
+              <label for="ativos" class="form-label">
+                Pesquisa Data 2
+              </label>
+              <input
+                onChange={(e) => setData2(e.target.value)}
+                type="date"
+                class="form-control"
+              />
+              <button class="btn btn-primary mt-2" onClick={PesquisaData}>
+                Pesquisar Data
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+      <div class="px-3">{mensagem}</div>
+
+      <hr />
       <div class="tabela mt-3 table-responsive ">
         <table class="table table-hover">
           <thead class="thead-dark">

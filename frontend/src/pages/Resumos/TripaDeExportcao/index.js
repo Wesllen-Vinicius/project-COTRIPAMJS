@@ -6,7 +6,7 @@ import axios from "axios";
 import Header from "../../../components/header/index";
 import Footer from "../../../components/footer/footer";
 
-function Abate() {
+function TripaExpotacaoResumo() {
   const [resumo, setResumo] = useState([]);
   const [mensagem, setMensagem] = useState("");
   const [pesquisa, setPesquisa] = useState("");
@@ -14,9 +14,11 @@ function Abate() {
   const [data2, setData2] = useState("");
   const [tipoPesquisa, setTipoPesquisa] = useState("");
   useEffect(() => {
-    axios.get("http://localhost:3001/api/resumo/abate").then((response) => {
-      setResumo(response.data);
-    });
+    axios
+      .get("http://localhost:3001/api/resumo/tripaExportacao")
+      .then((response) => {
+        setResumo(response.data);
+      });
   }, []);
 
   const Pesquisa = () => {
@@ -24,10 +26,9 @@ function Abate() {
       setMensagem("Campo vazio");
     } else {
       axios
-        .post("http://localhost:3001/api/abate/pesquisa", {
+        .post("http://localhost:3001/api/tripaExportacao/pesquisa", {
           encarregado: pesquisa,
-          abate: pesquisa,
-          unidade_abate: pesquisa,
+          unidade_exportacao: pesquisa,
         })
         .then((response) => {
           setMensagem(response.data.message);
@@ -43,7 +44,7 @@ function Abate() {
       setMensagem("Campo vazio");
     } else {
       axios
-        .post("http://localhost:3001/api/abate/pesquisa/data", {
+        .post("http://localhost:3001/api/tripaExportacao/pesquisa/data", {
           data: data,
           data2: data2,
         })
@@ -96,6 +97,7 @@ function Abate() {
                   Serosa
                 </Link>
               </li>
+
               <li class="nav-item">
                 <Link class="nav-link " to="/Resumo/TripaCozida">
                   Tripa Cozida
@@ -177,17 +179,16 @@ function Abate() {
       <div class="px-3">{mensagem}</div>
 
       <hr />
-
       <div class="tabela mt-3 table-responsive ">
         <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">Abate</th>
-              <th scope="col">Bois abatidos</th>
-              <th scope="col">Vacas</th>
-              <th scope="col">Condenados</th>
-              <th scope="col">Total</th>
+              <th scope="col">Tripa Reta</th>
+              <th scope="col">Tripa 1C</th>
+              <th scope="col">Tripa 2C</th>
+              <th scope="col">Culatra</th>
+              <th scope="col">Fundo</th>
               <th scope="col">Unidade</th>
               <th scope="col">Encarregado</th>
               <th scope="col">Data dia</th>
@@ -200,12 +201,13 @@ function Abate() {
               <tbody>
                 <tr>
                   <th scope="row">{val.id}</th>
-                  <td>{val.abate}</td>
-                  <td>{val.bois_abate}</td>
-                  <td>{val.vacas_abate}</td>
-                  <td>{val.condenados}</td>
-                  <td>{val.total}</td>
-                  <td>{val.unidade_abate}</td>
+                  <td>{val.tripa_reta}</td>
+                  <td>{val.tripa_torta1c}</td>
+                  <td>{val.tripa_torta2c}</td>
+                  <td>{val.culatra}</td>
+                  <td>{val.fundo}</td>
+
+                  <td>{val.unidade_exportacao}</td>
                   <td>{val.encarregado}</td>
                   <td>{val.data_dia}</td>
                   <td>{val.data}</td>
@@ -219,4 +221,4 @@ function Abate() {
     </div>
   );
 }
-export default Abate;
+export default TripaExpotacaoResumo;

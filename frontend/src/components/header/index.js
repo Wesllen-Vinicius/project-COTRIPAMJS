@@ -103,12 +103,20 @@ function Header() {
                 </Link>
               </li>
             </ul>
-            <div class="me-2 credenciais">
-              <span>Encarregado: {Encarregado_Nome}</span>
-            </div>
-            <div class="credenciais">
-              <span>Unidade: {Encarregado_Unidade}</span>
-            </div>
+            {useSelector((state) => state.usuarioAdmin === 1) ? (
+              <div class="me-2 credenciais">
+                <span>{Encarregado_Nome}</span>
+              </div>
+            ) : (
+              <>
+                <div class="me-2 credenciais">
+                  <span>Encarregado: {Encarregado_Nome}</span>
+                </div>
+                <div class="credenciais">
+                  <span>Unidade: {Encarregado_Unidade}</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </nav>
