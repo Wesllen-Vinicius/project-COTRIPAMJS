@@ -4,9 +4,8 @@ exports.up = function (knex) {
     table.double("meta_tripaCozida").notNull();
     table.double("meta_serosa").notNull();
     table.string("nome_unidade").notNull().unique();
-    table.double("total_serosa");
-    table.double("total_tripaCozida");
-    table.double("total_tripaExpotacao");
+    table.integer("total_estoque");
+    table.integer("estoque_saida");
   });
 };
 exports.down = function (knex) {

@@ -1,28 +1,51 @@
 import React, { useState, useEffect } from "react";
-
 import { Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../../components/header";
 import Footer from "../../components/footer/footer";
 import axios from "axios";
 import { FaExclamationTriangle } from "react-icons/fa";
 
 function Estoque() {
-  const [tripaReta, setTripaReta] = useState("");
-  const [tripaTorta, setTripaTorta] = useState("");
-  const [tripaTorta2C, setTripaTorta2C] = useState("");
-  const [culatra, setCulatra] = useState("");
-  const [fundo, setFundo] = useState("");
-  const [dataDia, setDataDia] = useState("");
-  const [mensagem, setMensagem] = useState("");
   const [resumo, setResumo] = useState([]);
+  const [total, setTotal] = useState([]);
+  const Encarregado_Unidade = useSelector((state) => state.usuarioUnidade);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/total/serosa").then((response) => {
-      setResumo(response.data);
-      console.log(response.data);
-    });
+    axios
+      .post("http://localhost:3001/api/total/estoque", {
+        estoque_unidade: Encarregado_Unidade,
+      })
+      .then((response) => {
+        setTotal(response.data);
+      });
   }, []);
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/api/resumo/estoqueTotal", {
+        estoque_unidade: Encarregado_Unidade,
+      })
+      .then((response) => {
+        setResumo(response.data);
+      });
+  }, []);
+
+  const atualizar = () => {
+    const soma = total.map((val) => {
+      return {
+        totalCozido: val.total,
+        totalKM: val.totalKM,
+      };
+    });
+    console.log(soma[0].totalKM, soma[0].totalCozido);
+
+    axios.post("http://localhost:3001/api/casEstoqueTotal", {
+      total_serosa: soma[0].totalKM,
+      total_tripaCozida: soma[0].totalCozido,
+      estoque_unidade: Encarregado_Unidade,
+    });
+  };
 
   return (
     <div>
@@ -45,9 +68,9 @@ function Estoque() {
             return (
               <tbody>
                 <tr>
-                  <td>{val.total}</td>
-                  <td></td>
-                  <td></td>
+                  <td>{val.estoque_unidade}</td>
+                  <td>{val.total_tripaCozida}</td>
+                  <td>{val.total_serosa}</td>
                   <td></td>
                 </tr>
               </tbody>
@@ -72,7 +95,9 @@ function Estoque() {
           <label for="ativos" class="form-label">
             Tripa de Exportação
           </label>
-          <input valuetype="number" class="form-control" placeholder="0" />
+          <button class="btn btn-primary" onClick={atualizar}>
+            Atualizar
+          </button>
         </div>
       </div>
       <div>

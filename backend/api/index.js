@@ -319,6 +319,7 @@ app.post("/api/casUnidade", async (req, res) => {
   const nome_unidade = req.body.nome_unidade;
   const meta_serosa = req.body.meta_serosa;
   const meta_tripaCozida = req.body.meta_tripaCozida;
+
   const sqlInsert =
     "INSERT INTO unidades ( meta_serosa, meta_tripaCozida, nome_unidade) VALUES (?,?,?)";
   db.query(sqlInsert, [meta_serosa, meta_tripaCozida, nome_unidade], (err) => {
@@ -504,12 +505,6 @@ app.post("/api/tripaExportacao/pesquisa/data", async (req, res) => {
   });
 });
 
-app.get("/api/total/serosa", async (req, res) => {
-  db.query("SELECT SUM(KM) AS total FROM serosa", (err, result) => {
-    res.send(result);
-  });
-});
-
 app.post("/api/tripaExportacao/update/unidades", async (req, res) => {
   const data = req.body.data;
   const data2 = req.body.data2;
@@ -517,6 +512,47 @@ app.post("/api/tripaExportacao/update/unidades", async (req, res) => {
     "UPDATE unidades SET total_serosa = ?, total_tripaCozida = ?, total_tripaExpotacao = ? WHERE id = ?";
 
   db.query(sqlSelect, [data, data2], (err, result) => {
+    res.send(result);
+  });
+});
+
+//ESTOQUE
+app.get("/api/total/estoque", async (req, res) => {
+  const id_unidade = req.body.id_unidade;
+
+  db.query(
+    "SELECT SUM(serosa.KM) AS totalKM, SUM(tripacozida.total) AS total FROM serosa INNER JOIN  tripaCozida",
+    (err, result) => {
+      res.send(result);
+    }
+  );
+});
+
+app.post("/api/casEstoqueTotal", async (req, res) => {
+  const total_serosa = req.body.total_serosa;
+  const total_tripaCozida = req.body.total_tripaCozida;
+  const estoque_unidade = req.body.estoque_unidade;
+
+  const sqlInsert =
+    "INSERT INTO estoque_total (total_serosa, total_tripaCozida, estoque_unidade ) VALUES (?,?,?)";
+  db.query(
+    sqlInsert,
+    [total_serosa, total_tripaCozida, estoque_unidade],
+    (err) => {
+      console.log(err);
+      if (err) {
+        res.json({ message: "Campos vazios!" });
+      } else {
+        res.json({ message: "Cadastro realizado com sucesso!" });
+      }
+    }
+  );
+});
+
+app.post("/api/resumo/estoqueTotal", async (req, res) => {
+  const estoque_unidade = req.body.estoque_unidade;
+  const sqlSelect = "SELECT * FROM estoque_total  WHERE estoque_unidade = ?";
+  db.query(sqlSelect, [estoque_unidade], (err, result) => {
     res.send(result);
   });
 });
